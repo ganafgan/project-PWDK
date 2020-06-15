@@ -2,10 +2,18 @@ import GetStarted from './GetStarted';
 import Splash from './Splash';
 import Register from './Register';
 import Login from './Login';
+import Home from './Home'
+import Cart from './Cart'
+import Dashboard from './Dashboard'
+import Account from './Account'
 
 export {
     GetStarted,
     Splash,
     Register,
-    Login
+    Login,
+    Home,
+    Cart,
+    Dashboard,
+    Account
 }
