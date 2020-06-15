@@ -1,4 +1,6 @@
 const db = require('./../database/mysql')
+const { uploader } = require('../helpers/uploader')
+const fs = require('fs')
 
 
 const getAllDataProducts = (req,res) => {
@@ -55,22 +57,44 @@ const getProductById = (req,res) => {
 
 
 const postNewProduct = (req,res) => {
+    const upload = uploader('/products', 'PRD-IMG').single('product_image')
     let data = req.body
-    let sql = 'insert into products set ?'
 
-    db.query(sql, data, (err,result)=>{
-        try{
-            if(err) throw err
-            res.json({
-                error : false,
-                message : 'Post New Product Success!'
-            })
-        }catch(err){
-            res.json({
-                error : true,
-                message : err.message
-            })
-        }
+    upload(req, res, (err) => {
+        if(err) throw err
+
+        let sql_1 = 'insert into products set ?'
+        db.query(sql_1, data, (err,result)=>{
+            try{
+                if(err) throw err
+                
+                let dataImg = {
+                    url_image : req.file.path,
+                    product_id : result.insertId
+                }
+                let sql_2 = 'insert into product_images set ?'
+                db.query(sql_2, dataImg, (err,resutl) => {
+                    try{
+                        if(err) throw err
+                        res.json({
+                            error : false,
+                            message : 'product successfully added'
+                        })
+                    }catch(err){
+                        res.json({
+                            error : true,
+                            message : err.message
+                        })
+                    }
+                })
+
+            }catch(err){
+                res.json({
+                    error : true,
+                    message : err.message
+                })
+            }
+        })
     })
 }
 
@@ -99,14 +123,37 @@ const editProduct = (req,res) => {
 
 const deleteProduct = (req,res) => {
     let id = req.params.id
-    let sql = 'delete from products where id = ?'
+    let sql_1 = 'delete from products where id = ?'
 
-    db.query(sql, id, (err,result) => {
+    db.query(sql_1, id, (err,result) => {
         try{
             if(err) throw err
-            res.json({
-                error : false,
-                message : 'Delete Product Success!'
+            let sql_2 = 'select * from product_images where id = ?'
+            db.query(sql_2, id, (err,result) => {
+                try{
+                    if(err) throw err
+                    fs.unlinkSync(result[0].url_image)
+                    let sql_3 = 'delete from product_images where id = ?'
+                    db.query(sql_3, id, (err,result) => {
+                        try{
+                            if(err)throw err
+                            res.json({
+                                error : false,
+                                message : 'Delete Success'
+                            })
+                        }catch(err){
+                            res.json({
+                                error : true,
+                                message : err.message
+                            })
+                        }
+                    })
+                }catch(err){
+                    res.json({
+                        error : true,
+                        message : err.message
+                    })
+                }
             })
         }catch(err){
             res.json({
