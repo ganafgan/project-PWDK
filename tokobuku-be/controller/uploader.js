@@ -83,7 +83,7 @@ const postAuthorPict = (req,res) => {
         }
 
         const sql = 'update authors set ? where id = ?'
-        db.query(sql, id, (err, result) => {
+        db.query(sql, [dataToUpdate,id], (err, result) => {
             try{
                 if(err) throw err
                 res.json({
