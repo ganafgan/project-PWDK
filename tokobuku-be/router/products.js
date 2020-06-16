@@ -5,6 +5,7 @@ Router.get('/', Controller.getAllDataProducts)
 Router.get('/:id', Controller.getProductById)
 Router.post('/', Controller.postNewProduct)
 Router.patch('/:id', Controller.editProduct)
+Router.patch('/image/:product_id', Controller.editProductImageById)
 Router.delete('/:id', Controller.deleteProduct)
 
 

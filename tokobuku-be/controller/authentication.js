@@ -9,7 +9,8 @@ const register = (req,res) => {
         username : data.username,
         email : data.email,
         password : data.password,
-        role : data.username.includes('admin') ? 'admin' : 'pembeli'  //di front end reactjs gaboleh input username yang includes admin, cuma di web admin bisanya
+        role : data.username.includes('admin') ? 'admin' : 'pembeli',  //di front end reactjs gaboleh input username yang includes admin, cuma di web admin bisanya
+        isVerified : data.username.includes('admin') ? 1 : 0
     }
 
     const sqlUsernameCheck = 'select * from users where username = ?'
