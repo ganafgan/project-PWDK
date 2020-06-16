@@ -8,7 +8,7 @@ const addToWishList = (req,res) => {
     db.query(sql, data, (err,result) => {
         try{
             if(err) throw err
-            res.josn({
+            res.json({
                 error : false,
                 message : 'Add To Wishlist Success'
             })
