@@ -16,6 +16,6 @@ export {
     Home,
     Cart,
     Dashboard,
-    Account
+    Account,
     UploadPhoto
 }
