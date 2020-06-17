@@ -4,6 +4,8 @@ import HeaderSearch from './HeaderSearch';
 import BookCategory from './BookCategory';
 import RatedBook from './RatedBook';
 import ListBook from './ListBook'
+import NullCart from './NullCart'
+import ContentCart from './ContentCart'
 
 export {
     Header,
@@ -11,5 +13,7 @@ export {
     HeaderSearch,
     BookCategory,
     RatedBook,
-    ListBook
+    ListBook,
+    NullCart,
+    ContentCart
 }
