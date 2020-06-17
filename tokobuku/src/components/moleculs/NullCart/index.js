@@ -1,16 +1,11 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { ILTroli } from '../../assets'
-import { Button, Header } from '../../components'
-import { colors, fonts } from '../../utils'
-import { StyleSheet, Text, View } from 'react-native'
-import { NullCart, Header, ContentCart } from '../../components/'
-import { colors } from '../../utils'
+import { StyleSheet, Text, View, Image } from 'react-native'
+import { ILTroli } from '../../../assets'
+import { Button } from '../../../components'
+import { colors, fonts  } from '../../../utils'
 
-const Cart = () => { 
-    return (
-        <View style={styles.page}>
-            <Header title='Cart' />
+const NullCart = () => {
+    return ( 
             <View style={styles.content}>
                 <View style={styles.troli}>
                     <View style={styles.gambarWrapper}>
@@ -21,33 +16,15 @@ const Cart = () => {
                 </View>
                 <View>
                     <Button title='Order a Book' />                    
-                </View>
-            </View>
-        // Bagian Null Cart
-
-        <View style={{flex: 1, backgroundColor: colors.white}}>
-            <Header title='Cart' />
-            <NullCart />
-        </View>
-        
-        // Tinggal dibuat if else untuk tampilkan page apabila data cart telah di isi.
-
-        // Bagian Content Cart
-
-        // <View style={{flex: 1, backgroundColor: colors.white}}>
-        //     <Header title='Cart' />
-        //     <ContentCart />
-        // </View>
+                </View> 
+            </View>      
     )
 }
 
-export default Cart
+export default NullCart;
 
 const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-        backgroundColor: colors.white
-    },
+    
     content: {
         paddingHorizontal: 40,
         flex: 1,
@@ -65,8 +42,7 @@ const styles = StyleSheet.create({
     },
     gambarWrapper: {
         width: 130,
-        height: 130,
-        
+        height: 130,        
     },    
     judul: {
         fontSize: 15,
@@ -81,3 +57,4 @@ const styles = StyleSheet.create({
         color: colors.text.secondary
     }
 })
+

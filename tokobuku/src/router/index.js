@@ -1,7 +1,9 @@
 import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
-import { Splash, GetStarted, Login, Register, Home, UploadPhoto, Cart, Dashboard, Account } from '../pages'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account } from '../pages'
+import { BottomNavigator } from '../components';
 
 
 const Stack = createStackNavigator()
@@ -9,7 +11,7 @@ const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Cart" component={Cart} />
             <Tab.Screen name="Dashboard" component={Dashboard} />

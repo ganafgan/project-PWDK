@@ -2,11 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import { colors } from '../../../utils'
 
-const Input = ({label}) => {
+const Input = ({label, onChangeText, value}) => {
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
-            <TextInput style={styles.input} />
+            <TextInput style={styles.input} onChangeText={onChangeText} value={value}/>
         </View>
     )
 }

@@ -17,5 +17,5 @@ export {
     Cart,
     Dashboard,
     Account,
-    UploadPhoto,
+    UploadPhoto
 }
