@@ -3,7 +3,8 @@ import BottomNavigator from './BottomNavigator';
 import HeaderSearch from './HeaderSearch';
 import BookCategory from './BookCategory';
 import RatedBook from './RatedBook';
-import ListBook from './ListBook'
+import ListBook from './ListBook';
+import Penerbit from './Penerbit'
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     HeaderSearch,
     BookCategory,
     RatedBook,
-    ListBook
+    ListBook,
+    Penerbit
 }

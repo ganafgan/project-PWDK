@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import { colors } from '../../../utils'
 import { Input } from '../../atoms'
 
-const HeaderSearch = () => {
+const HeaderSearch = ({title, width}) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} placeholder='Cari Buku Mu' />
+            <TextInput style={styles.input(width)} placeholder={title} />
             <View></View>
         </View>
     )
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 20
     },
-    input: {
+    input: (width) => ({
         backgroundColor: colors.white,
-        width: 250,
+        width: width,
         borderRadius: 10,
         padding: 10,
         fontSize: 14
-    }
+    })
 })
