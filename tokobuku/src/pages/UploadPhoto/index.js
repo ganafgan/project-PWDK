@@ -4,7 +4,7 @@ import { ILNullPhoto, IconAddPhoto } from '../../assets'
 import { Button, Header, Link, Gap } from '../../components'
 import { colors, fonts } from '../../utils'
 
-const UploadPhoto = () => {
+const UploadPhoto = () => { 
     return (
         <View style={styles.page}>
             <Header title='Upload Photo' />

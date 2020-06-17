@@ -8,6 +8,7 @@ import ILBook3 from './novel3.png';
 import ILBook4 from './novel4.png';
 import ILBook5 from './novel5.png';
 import ILBook6 from './novel6.png';
+import ILTroli from './troli.png';
 
 export {
     ILLogo,
@@ -19,5 +20,6 @@ export {
     ILBook3,
     ILBook4,
     ILBook5,
-    ILBook6
+    ILBook6,
+    ILTroli
 }

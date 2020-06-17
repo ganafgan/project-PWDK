@@ -1,17 +1,21 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { NullCart } from '../../components'
-import { colors } from '../../utils'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { ILTroli } from '../../assets'
+import { colors, fonts } from '../../utils'
+import { NullCart, Header, ContentCart, Button } from '../../components/'
 
-const Cart = () => {
+
+
+const Cart = () => { 
     return (
         <View style={styles.container}>
+            <Header title='Cart' />
             <NullCart />
         </View>
     )
 }
 
-export default Cart;
+export default Cart
 
 const styles = StyleSheet.create({
     container: {
