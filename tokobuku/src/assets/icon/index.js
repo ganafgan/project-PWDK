@@ -9,6 +9,7 @@ import IconCartActive from './ic-cart-active.svg';
 import IconCartInactive from './ic-cart-inactive.svg';
 import IconAkunActive from './ic-akun-active.svg';
 import IconAkunInactive from './ic-akun-inactive.svg';
+import IconBookCat from './ic-book-cat.svg';
 
 export {
     IconBackDark,
@@ -21,5 +22,6 @@ export {
     IconCartActive,
     IconCartInactive,
     IconAkunActive,
-    IconAkunInactive
+    IconAkunInactive,
+    IconBookCat
 }

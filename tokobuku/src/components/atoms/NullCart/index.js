@@ -1,15 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { NullCart } from '../../components'
 
-const Cart = () => {
+const NullCart = () => {
     return (
         <View>
-            <NullCart />
+            <Text>CArt ini kosong</Text>
+            <Text></Text>
+            
         </View>
     )
 }
 
-export default Cart;
+export default NullCart
 
 const styles = StyleSheet.create({})

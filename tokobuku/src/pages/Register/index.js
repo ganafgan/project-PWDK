@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, Gap, Header, Input } from '../../components'
 import { colors } from '../../utils'
 
 const Register = ({navigation}) => {
+
+    const [fullName, setFullName] = useState('')
     return (
         <View style={styles.page}>
             <Header onPress={()=> navigation.goBack()} title='Daftar Akun'/>
             <View style={styles.content}>
-                <Input label='Full Name' />
+                <Input label='Full Name' onChangeText={(value) => setFullName(value)} value={value} />
                 <Gap height={24} />
                 <Input label='Email' />
                 <Gap height={24} />
