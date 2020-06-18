@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const port = 4000
 const cors = require('cors')
+const BearerToken = require('express-bearer-token')
 
 app.use(express.json())
 app.use(cors())
+app.use(BearerToken())
 app.use('/public', express.static('public'))
 
 app.use('/auth', require('./router/authentication'))
