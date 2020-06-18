@@ -1,16 +1,12 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { ILTroli } from '../../assets'
-import { colors, fonts } from '../../utils'
-import { NullCart, Header, ContentCart, Button } from '../../components/'
-
-
+import { StyleSheet, View } from 'react-native'
+import { ContentCarts, NullCarts } from '../../components/'
+import { colors } from '../../utils'
 
 const Cart = () => { 
     return (
         <View style={styles.container}>
-            <Header title='Cart' />
-            <NullCart />
+            <ContentCarts />
         </View>
     )
 }

@@ -10,6 +10,5 @@ export {
     Gap,
     Input,
     Link,
-    TabItem,
-    
+    TabItem
 }
