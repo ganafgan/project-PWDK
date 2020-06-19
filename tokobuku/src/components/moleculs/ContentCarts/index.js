@@ -77,10 +77,9 @@ const ContentCarts = () => {
                 <Gap height={20} />
             </ScrollView>  
 
-            <View style={{flexDirection:'row', height: 50, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-30}}>
-                <Text style={{alignItems: 'center',
-        justifyContent: 'center'}}>Rp.1.423.123</Text>
-                <Text>sticky footer</Text>
+            <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-20}}>
+                <View style={{justifyContent:'center', alignItems:'center',paddingLeft:20}}><Text>Rp.529.000</Text></View>
+                <View style={{justifyContent:'center', alignItems:'center', paddingRight:20}}><Button title="Checkout" /></View>
             </View>
 
                  

@@ -8,6 +8,8 @@ import Penerbit from './Penerbit';
 import NullCarts from './NullCarts';
 import ContentCarts from './ContentCarts';
 import HeaderMain from './HeaderMain';
+import Profile from './Profile';
+import ListMenuProfile from './ListMenuProfile'
 
 export {
    Header,
@@ -19,5 +21,7 @@ export {
    Penerbit,
    NullCarts,
    ContentCarts,
-   HeaderMain
+   HeaderMain,
+   Profile,
+   ListMenuProfile
 }

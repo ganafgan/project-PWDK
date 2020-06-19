@@ -30,6 +30,7 @@ const Router = () => {
             <Stack.Screen name='UploadPhoto' component={UploadPhoto} options={{headerShown: false}} />
             <Stack.Screen name='MainApp' component={MainApp} options={{headerShown:false}} />
             <Stack.Screen name='Cart' component={Cart} options={{headerShown: false}} />
+            <Stack.Screen name='Account' component={Account} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }
