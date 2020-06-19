@@ -12,6 +12,11 @@ import IconAkunInactive from './ic-akun-inactive.svg';
 import IconBookCat from './ic-book-cat.svg';
 import IconPlusButton from './ic-plus-button.svg';
 import IconMinusButton from './ic-minus-button.svg';
+import IconEdit from './ic-edit-account.svg';
+import IconAbout from './ic-about.svg';
+import IconHelp from './ic-help.svg';
+import IconLogout from './ic-logout.svg';
+import IconNext from './ic-next.svg';
 
 export {
     IconBackDark,
@@ -27,5 +32,10 @@ export {
     IconAkunInactive,
     IconBookCat,
     IconPlusButton,
-    IconMinusButton
+    IconMinusButton,
+    IconAbout,
+    IconEdit,
+    IconHelp,
+    IconLogout,
+    IconNext
 }
