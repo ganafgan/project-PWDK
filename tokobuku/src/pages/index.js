@@ -7,6 +7,7 @@ import Cart from './Cart'
 import Dashboard from './Dashboard'
 import Account from './Account'
 import UploadPhoto from './UploadPhoto'
+import ProductDetail from './ProductDetail'
 
 export {
     GetStarted,
@@ -17,5 +18,6 @@ export {
     Cart,
     Dashboard,
     Account,
-    UploadPhoto
+    UploadPhoto,
+    ProductDetail
 }

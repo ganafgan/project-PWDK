@@ -112,37 +112,6 @@ const editUserProfilePict = (req,res) => {
 }
 
 
-const postAuthorPict = (req,res) => {
-    const upload = uploader('/author', 'AUTHOR').single('author')
-
-    upload(req, res, (err) => {
-        if(err) throw err
-        const image = req.file
-        const id = req.params.id
-
-        const dataToUpdate = {
-            url_author_image : req.file.path
-        }
-
-        const sql = 'update authors set ? where id = ?'
-        db.query(sql, [dataToUpdate,id], (err, result) => {
-            try{
-                if(err) throw err
-                res.json({
-                    error : false,
-                    message : 'Author Picture Updated'
-                })
-            }catch(err){
-                res.json({
-                    error : true,
-                    message : err.message
-                })
-            }
-        })
-    })
-}
-
-
 const postPublisherPict = (req,res) => {
     const upload = uploader('/publisher', 'PUBLISHER').single('publisher')
 
@@ -174,11 +143,43 @@ const postPublisherPict = (req,res) => {
 }
 
 
+const postProductPict = (req,res) => {
+    const upload = uploader('/products', 'PRD-IMG').single('post_product_image')
+
+    upload(req, res, (err) => {
+        if(err) throw err
+        const image = req.file
+        const id = req.params.id_product
+
+        const dataToUpdate = {
+            url_image : req.file.path,
+            product_id : id
+        }
+
+        const sql = 'insert into product_images set ?'
+        db.query(sql, dataToUpdate, (err, result) => {
+            try{
+                if(err) throw err
+                res.json({
+                    error : false,
+                    message : 'Product Image Posted'
+                })
+            }catch(err){
+                res.json({
+                    error : true,
+                    message : err.message
+                })
+            }
+        })
+    })
+}
+
+
 
 module.exports = {
     postPaymentConfirmation,
     postUserProfilePict,
     editUserProfilePict,
-    postAuthorPict,
-    postPublisherPict
+    postPublisherPict,
+    postProductPict
 }

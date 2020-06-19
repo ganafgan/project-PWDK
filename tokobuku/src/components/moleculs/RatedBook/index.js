@@ -2,14 +2,17 @@ import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ILBook1 } from '../../../assets'
 import { colors, fonts } from '../../../utils'
+import NumberFormat from 'react-number-format'
 
-const RatedBook = () => {
+const RatedBook = (props) => {
     return (
         <View style={styles.container}>
-            <Image source={ILBook1} style={styles.img} />
-            <Text style={styles.title}>Rahasia Wanita</Text>
-            <Text style={styles.author}>Giran Munggaran</Text>
-            <Text style={styles.price}>Rp 150.000</Text>
+            <Image source={props.image} style={styles.img} />
+            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.author}>{props.author}</Text>
+            <NumberFormat 
+                value={props.price} displayType={'text'} decimalSeparator={','} thousandSeparator={'.'} prefix={'Rp'} 
+                renderText={value=><Text style={styles.price}>{value}</Text>} />
         </View>
     )
 }
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
         height: 150,
     },
     title: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.primary[600],
         marginTop: 10,
         marginBottom: 5,
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
         color: colors.text.secondary
     },
     price: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.primary[600],
         marginBottom: 10,
         color: colors.text.primary

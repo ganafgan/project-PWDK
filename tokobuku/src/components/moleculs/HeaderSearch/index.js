@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import { colors } from '../../../utils'
 import { Input } from '../../atoms'
 
-const HeaderSearch = ({title, width}) => {
+const HeaderSearch = ({title, width, onChangeText, value}) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input(width)} placeholder={title} />
+            <TextInput style={styles.input(width)} placeholder={title} onChangeText={onChangeText} value={value} />
             <View></View>
         </View>
     )

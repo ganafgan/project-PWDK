@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import { ILBookCat, IconBookCat } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 
-const Bookcategory = () => {
+const Bookcategory = (props) => {
     return (
         <View style={styles.container}>
             <Image source={ILBookCat} style={styles.img} />
             <Text style={styles.label}>Saya mencari</Text>
-            <Text style={styles.category}>Buku Novel</Text>
+            <Text style={styles.category}>Buku {props.category}</Text>
         </View>
     )
 }
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       width: 40,
       height: 50,
       borderRadius: 10  ,
-      marginBottom: 20
+      marginBottom: 15
     },
     label: {
         fontSize: 12,
