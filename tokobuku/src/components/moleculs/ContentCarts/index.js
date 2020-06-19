@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { ILBook1, ILBook2, ILBook3, IconMinusButton, IconPlusButton } from '../../../assets'
 import { Button, Gap } from '../../atoms'
 import { colors, fonts } from '../../../utils'
 
 const ContentCarts = () => {
+    // Deklarasi variabel state baru "Count"
+    const [count, setCount] = useState(0);
+    
+    function buttonClickHandlerMinus() {
+        setCount(count - 1);
+	}
+    
+    function buttonClickHandlerPlus() {
+        setCount(count + 1);
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -18,11 +29,11 @@ const ContentCarts = () => {
                         <Text style={styles.price}>Rp 150.000</Text>
                     </View>
                     <View style={styles.content2}>
-                        <IconMinusButton />
+                        <IconMinusButton onPress={() => buttonClickHandlerMinus() } />
                         <Gap width={5} />
-                        <Text>10</Text>
+                        <Text>{ count }</Text>
                         <Gap width={5} />
-                        <IconPlusButton />
+                        <IconPlusButton onPress={() => buttonClickHandlerPlus() } />
                     </View>
                 </View>
                 <Gap height={20} />
@@ -37,11 +48,11 @@ const ContentCarts = () => {
                         <Text style={styles.price}>Rp 100.000</Text>
                     </View>
                     <View style={styles.content2}>
-                        <IconMinusButton />
+                        <IconMinusButton onPress={() => buttonClickHandlerMinus()} />
                         <Gap width={5} />
-                        <Text>10</Text>
+                        <Text>{ count }</Text>
                         <Gap width={5} />
-                        <IconPlusButton />
+                        <IconPlusButton onPress={() => buttonClickHandlerPlus()} />
                     </View>
                 </View>
                 <Gap height={20} />
@@ -56,15 +67,22 @@ const ContentCarts = () => {
                         <Text style={styles.price}>Rp 125.000</Text>
                     </View>
                     <View style={styles.content2}>
-                        <IconMinusButton />
+                        <IconMinusButton onPress={() => buttonClickHandlerMinus()} />
                         <Gap width={5} />
-                        <Text>10</Text>
+                        <Text>{count}</Text>
                         <Gap width={5} />
-                        <IconPlusButton />
+                        <IconPlusButton onPress={() => buttonClickHandlerPlus()} />
                     </View>
                 </View>
                 <Gap height={20} />
-            </ScrollView>            
+            </ScrollView>  
+
+            <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-20}}>
+                <View style={{justifyContent:'center', alignItems:'center',paddingLeft:20}}><Text>Rp.529.000</Text></View>
+                <View style={{justifyContent:'center', alignItems:'center', paddingRight:20}}><Button title="Checkout" /></View>
+            </View>
+
+                 
         </View>
         
     )
@@ -75,8 +93,8 @@ export default ContentCarts
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        backgroundColor: colors.white,
-        // flexDirection: 'row'
+        backgroundColor: colors.white, 
+        flex :1       
     },
     page: {
         padding: 20,
@@ -85,14 +103,12 @@ const styles = StyleSheet.create({
     },
     content: {
         marginLeft: 20,
-        flex:1,
-        // backgroundColor:'tomato'
+        flex:1,        
     },
     content2: {
         flexDirection: 'row',
         marginLeft: 20,
-        marginTop: 65,
-       
+        marginTop: 65,       
     },
     img: {
         height: 150,
