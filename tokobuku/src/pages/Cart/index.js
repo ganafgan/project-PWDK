@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { ContentCarts, NullCarts } from '../../components/'
+import { ContentCarts, NullCarts, HeaderMain } from '../../components/'
 import { colors } from '../../utils'
 
 const Cart = () => { 
     return (
         <View style={styles.container}>
+            <HeaderMain title='Cart' />
             <ContentCarts />
         </View>
     )

@@ -7,6 +7,7 @@ import ListBook from './ListBook';
 import Penerbit from './Penerbit';
 import NullCarts from './NullCarts';
 import ContentCarts from './ContentCarts';
+import HeaderMain from './HeaderMain';
 
 export {
    Header,
@@ -17,5 +18,6 @@ export {
    ListBook,
    Penerbit,
    NullCarts,
-   ContentCarts
+   ContentCarts,
+   HeaderMain
 }
