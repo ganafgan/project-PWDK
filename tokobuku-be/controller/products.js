@@ -5,11 +5,10 @@ const fs = require('fs')
 
 const getAllDataProducts = (req,res) => {
     let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
-    c.category, a.name as author, pr.name as publisher, pi.url_image from products p 
+    c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
     left join product_images pi on p.id =  pi.product_id
-    join category c on p.category_id = c.id
-    join authors a on p.authors_id = a.id
-    join publishers pr on p.publishers_id = pr.id;`
+    left join category c on p.category_id = c.id
+    left join publishers pr on p.publishers_id = pr.id;`
 
     db.query(sql, (err,result) => {
         try{
@@ -33,11 +32,10 @@ const getAllDataProducts = (req,res) => {
 const getProductById = (req,res) => {
     let id = req.params.id
     let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
-    c.category, a.name as author, pr.name as publisher, pi.url_image from products p 
+    c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
     left join product_images pi on p.id =  pi.product_id
-    join category c on p.category_id = c.id
-    join authors a on p.authors_id = a.id
-    join publishers pr on p.publishers_id = pr.id where p.id = ?;`
+    left join category c on p.category_id = c.id
+    left join publishers pr on p.publishers_id = pr.id where p.id = ?;`
 
     db.query(sql, id, (err,result) => {
         try{

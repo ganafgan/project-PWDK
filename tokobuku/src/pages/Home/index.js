@@ -1,12 +1,139 @@
-import React from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit } from '../../components'
-import { fonts, colors } from '../../utils'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit, NullCarts, ListBook } from '../../components';
+import { fonts, colors } from '../../utils';
+import Axios from 'axios';
+import { API_URL } from './../../supports/constants/urlApi';
+import {connect} from 'react-redux'
 
-const Home = () => {
+const Home = (props) => {
+
+    const [category, setCategory] = useState(null)
+    const [publishers, setPublishers] = useState(null)
+    const [dataBook, setDataBook] = useState(null)
+    const [search, setSearch] = useState('')
+    
+    useEffect(()=>{getCategory(),getDataBook(),getPublishers()}, [])
+
+    const getCategory = () => {
+        Axios.get(API_URL + 'category')
+        .then((res)=>{
+            setCategory(res.data.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const getPublishers = () => {
+        Axios.get(API_URL + 'publishers')
+        .then((res)=>{
+            setPublishers(res.data.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const getDataBook = () => {
+        Axios.get(API_URL + 'products')
+        .then((res)=>{
+            setDataBook(res.data.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const renderRatedBook = () => {
+        //Buat Nyari Buku Pilihan Cari 10 Produk yang paling laku
+        let filtered = dataBook.slice(0,10)
+
+        return filtered.map((val)=>{
+            return(
+                <TouchableOpacity key={val.id}>
+                    <RatedBook 
+                        image={{uri : API_URL + val.url_image}}
+                        title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
+                        : val.title
+                        }
+                        author={val.author}
+                        price={val.price}
+                        />
+                </TouchableOpacity>
+            )
+        })
+    }
+
+    const renderNewBook = () => {
+        //Buat Nyari Buku Terbitan Baru
+        let newBook = dataBook.filter((val)=>{
+            return val.tahun_terbit === 2020
+        })
+
+        return newBook.map((val)=>{
+            return(
+                <TouchableOpacity key={val.id}>
+                    <RatedBook 
+                        image={{uri : API_URL + val.url_image}}
+                        title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
+                        : val.title
+                        }
+                        author={val.author}
+                        price={val.price}
+                        />
+                </TouchableOpacity>
+            )
+        })
+    }
+
+    const renderSearchBook = () => {
+        //FITUR SEARCH TINGGAL BENERIN DESAINNYA
+        let searchBook = dataBook.filter((val)=>{
+            return val.title.toLowerCase().includes(search.toLowerCase())
+        })
+
+        return searchBook.map((val)=>{
+            return(
+                <TouchableOpacity key={val.id}>
+                    <ListBook 
+                        image={{uri : API_URL + val.url_image}}
+                        title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
+                        : val.title
+                        }
+                        author={val.author}
+                        price={val.price}
+                        />
+                </TouchableOpacity>
+            )
+        })
+    }
+
+    if(category === null || publishers === null || dataBook === null){
+        return(
+            <View style={styles.page}>
+                {/* BELUM BIKIN PAGE LOADING */}
+                <Text>Butuh Page Loading ...</Text>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.page}>
-            <HeaderSearch title='Cari Buku Favorit' width={300} />
+            <HeaderSearch title='Cari Buku Favorit' width={300} onChangeText={(text)=>setSearch(text)} value={search} />
+            {
+
+            search ?
+
+            <View style={styles.content}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {/* DESAIN LISTBOOK NYA MASI BELUM BERES */}
+                    {renderSearchBook()}  
+                </ScrollView>
+            </View>
+
+            :
+
             <View style={styles.content}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.welcome}>Temukan Buku Favoritmu di BookStore</Text>
@@ -14,54 +141,78 @@ const Home = () => {
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.category}>
                                 <Gap width={20} />
-                                <BookCategory />
-                                <BookCategory />
-                                <BookCategory />
-                                <BookCategory />
-                                <BookCategory />
-                                <BookCategory />
+                                {
+                                    category.map((val)=>{
+                                        return(
+                                            <TouchableOpacity key={val.id}>
+                                                <BookCategory category={val.category} />
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
                                 <Gap width={10} />
                             </View>
                         </ScrollView>
                     </View>
-                    <Text style={styles.title}>Buku Pilihan</Text>
+
+                    <Text style={styles.title}>Buku Pilihan {props.user} </Text>
                     <View style={styles.wrapperScroll}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.rated}>
                                 <Gap width={20} />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
+                                    {renderRatedBook()}
                                 <Gap width={10} />
                             </View>
                         </ScrollView>
                     </View>
+
                     <Text style={styles.title}>Buku Baru</Text>
                     <View style={styles.wrapperScroll}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.rated}>
                                 <Gap width={20} />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
-                                <RatedBook />
+                                    {renderNewBook()}
                                 <Gap width={10} />
                             </View>
                         </ScrollView>
                     </View>
+
                     <Text style={styles.title}>Penerbit</Text>
-                        <Penerbit />
-        
+                        <View style={styles.wrapperScroll}>
+                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                <View style={styles.rated}>
+                                    <Gap width={20} />
+                                            {
+                                            publishers.map((val)=>{
+                                                return(
+                                                    <TouchableOpacity key={val.id}>
+                                                        <Penerbit
+                                                            image={{uri:API_URL + val.url_publisher_logo}}
+                                                            name={val.name}
+                                                        />
+                                                    </TouchableOpacity>
+                                                )
+                                            })
+                                            }
+                                    <Gap width={10} />
+                                </View>
+                            </ScrollView>
+                        </View>
                 </ScrollView>
             </View>
+            }
         </View>
     )
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+    return{
+        user : state.user.user
+    }
+}
+
+
+export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
     page: {
