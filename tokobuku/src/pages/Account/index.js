@@ -13,8 +13,8 @@ const Account = ({navigation}) => {
                 <Profile />
                 <Gap height={50} />
                 <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' />
-                <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about' />
-                <ListMenuProfile name='Help' desc='Bantuan Aplikasi' type='next' icon='help' />
+                <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about'  onPress={()=> navigation.navigate('About')} />
+                <ListMenuProfile name='Help' desc='Bantuan Aplikasi' type='next' icon='help'  onPress={()=> navigation.navigate('Help')} />
                 <ListMenuProfile name='Logout' desc='Keluar dari Aplikasi' type='next' icon='logout' />
             </View>
         </View>

@@ -10,6 +10,8 @@ import UploadPhoto from './UploadPhoto'
 import ProductDetail from './ProductDetail'
 import ProductList from './ProductList'
 import Wishlist from './Wishlist'
+import About from './About'
+import Help from './Help'
 
 export {
     GetStarted,
@@ -23,5 +25,7 @@ export {
     UploadPhoto,
     ProductDetail,
     ProductList,
-    Wishlist
+    Wishlist,
+    About,
+    Help
 }
