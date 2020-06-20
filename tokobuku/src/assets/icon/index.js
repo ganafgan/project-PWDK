@@ -17,6 +17,8 @@ import IconAbout from './ic-about.svg';
 import IconHelp from './ic-help.svg';
 import IconLogout from './ic-logout.svg';
 import IconNext from './ic-next.svg';
+import IconCart from './ic-cart.svg';
+import IconFavoriet from './ic-favorite.svg';
 
 export {
     IconBackDark,
@@ -37,5 +39,7 @@ export {
     IconEdit,
     IconHelp,
     IconLogout,
-    IconNext
+    IconNext,
+    IconCart,
+    IconFavoriet
 }
