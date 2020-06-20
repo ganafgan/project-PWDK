@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     author: {
         fontSize: 12,
         fontFamily: fonts.primary[600],
-        marginBottom: 10,
+        marginBottom: 5,
         color: colors.text.secondary
     },
     price: {

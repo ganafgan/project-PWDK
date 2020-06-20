@@ -51,7 +51,7 @@ const Home = (props) => {
 
         return filtered.map((val)=>{
             return(
-                <TouchableOpacity key={val.id}>
+                <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
                     <RatedBook 
                         image={{uri : API_URL + val.url_image}}
                         title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
@@ -73,7 +73,7 @@ const Home = (props) => {
 
         return newBook.map((val)=>{
             return(
-                <TouchableOpacity key={val.id}>
+                <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
                     <RatedBook 
                         image={{uri : API_URL + val.url_image}}
                         title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
@@ -95,7 +95,7 @@ const Home = (props) => {
 
         return searchBook.map((val)=>{
             return(
-                <TouchableOpacity key={val.id}>
+                <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
                     <ListBook 
                         image={{uri : API_URL + val.url_image}}
                         title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
@@ -141,11 +141,16 @@ const Home = (props) => {
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.category}>
                                 <Gap width={20} />
+                                    <TouchableOpacity onPress={()=>props.navigation.navigate('ProductList', {header : 'Semua Buku'})}>
+                                        <BookCategory category='Semua Buku' />
+                                    </TouchableOpacity>
                                 {
                                     category.map((val)=>{
                                         return(
-                                            <TouchableOpacity key={val.id}>
-                                                <BookCategory category={val.category} />
+                                            <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductList', {header: val.category, category : val.id})}>
+                                                <BookCategory
+                                                    label='Saya mencari'
+                                                    category={'Buku ' + val.category} />
                                             </TouchableOpacity>
                                         )
                                     })
@@ -185,7 +190,7 @@ const Home = (props) => {
                                             {
                                             publishers.map((val)=>{
                                                 return(
-                                                    <TouchableOpacity key={val.id}>
+                                                    <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductList', {header: val.name, publisher : val.id})}>
                                                         <Penerbit
                                                             image={{uri:API_URL + val.url_publisher_logo}}
                                                             name={val.name}

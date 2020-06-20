@@ -25,7 +25,7 @@ const addToWishList = (req,res) => {
 
 const getDataWishlistByIdUser = (req,res) => {
     let id_user = req.params.id_user
-    let sql = `select w.id, w.id_user, w.id_product, p.name, p.price, p.description, p.stock, pi.url_image from wishlist w
+    let sql = `select w.id, w.id_user, w.id_product, p.name, p.price, p.author, p.description, p.stock, pi.url_image from wishlist w
     join products p on w.id_product = p.id
     join product_images pi on p.id = pi.product_id where w.id_user = ?;`
 
