@@ -212,11 +212,63 @@ const deleteProduct = (req,res) => {
 }
 
 
+const getProductFilterByCategory = (req,res) => {
+    let category = req.params.category
+    let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
+    c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
+    left join product_images pi on p.id =  pi.product_id
+    left join category c on p.category_id = c.id
+    left join publishers pr on p.publishers_id = pr.id where category_id = ?;`
+
+    db.query(sql, category, (err,result) => {
+        try{
+            if(err) throw err
+            res.json({
+                error : false,
+                data : result
+            })
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
+}
+
+
+const getProductFilterByPublisher = (req,res) => {
+    let category = req.params.publisher
+    let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
+    c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
+    left join product_images pi on p.id =  pi.product_id
+    left join category c on p.category_id = c.id
+    left join publishers pr on p.publishers_id = pr.id where publishers_id = ?;`
+
+    db.query(sql, category, (err,result) => {
+        try{
+            if(err) throw err
+            res.json({
+                error : false,
+                data : result
+            })
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
+}
+
+
 module.exports = {
     getAllDataProducts,
     getProductById,
     postNewProduct,
     editProduct,
     editProductImageById,
-    deleteProduct
+    deleteProduct, 
+    getProductFilterByCategory,
+    getProductFilterByPublisher
 }

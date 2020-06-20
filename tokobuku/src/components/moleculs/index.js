@@ -9,7 +9,8 @@ import NullCarts from './NullCarts';
 import ContentCarts from './ContentCarts';
 import HeaderMain from './HeaderMain';
 import Profile from './Profile';
-import ListMenuProfile from './ListMenuProfile'
+import ListMenuProfile from './ListMenuProfile';
+import ProductDetailContent from './ContentProductDetail'
 
 export {
    Header,
@@ -23,5 +24,6 @@ export {
    ContentCarts,
    HeaderMain,
    Profile,
-   ListMenuProfile
+   ListMenuProfile,
+   ProductDetailContent
 }

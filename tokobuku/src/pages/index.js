@@ -8,6 +8,8 @@ import Dashboard from './Dashboard'
 import Account from './Account'
 import UploadPhoto from './UploadPhoto'
 import ProductDetail from './ProductDetail'
+import ProductList from './ProductList'
+import Wishlist from './Wishlist'
 
 export {
     GetStarted,
@@ -19,5 +21,7 @@ export {
     Dashboard,
     Account,
     UploadPhoto,
-    ProductDetail
+    ProductDetail,
+    ProductList,
+    Wishlist
 }

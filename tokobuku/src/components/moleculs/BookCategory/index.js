@@ -7,8 +7,8 @@ const Bookcategory = (props) => {
     return (
         <View style={styles.container}>
             <Image source={ILBookCat} style={styles.img} />
-            <Text style={styles.label}>Saya mencari</Text>
-            <Text style={styles.category}>Buku {props.category}</Text>
+            <Text style={styles.label}>{props.label}</Text>
+            <Text style={styles.category}>{props.category}</Text>
         </View>
     )
 }

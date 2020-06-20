@@ -77,7 +77,7 @@ const ContentCarts = () => {
                 <Gap height={20} />
             </ScrollView>  
 
-            <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-20}}>
+            <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-20,}}>
                 <View style={{justifyContent:'center', alignItems:'center',paddingLeft:20}}><Text>Rp.529.000</Text></View>
                 <View style={{justifyContent:'center', alignItems:'center', paddingRight:20}}><Button title="Checkout" /></View>
             </View>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: colors.white, 
-        flex :1       
+        flex :1    
     },
     page: {
         padding: 20,
