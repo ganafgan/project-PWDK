@@ -21,7 +21,7 @@ const ProductDetail = (props) => {
     }
 
     const getData = () => {
-        let id = props.route.params.id
+        let id = props.route.params.id 
         Axios.get(API_URL + 'products/' + id)
         .then((res)=>{
             setData(res.data.data)
