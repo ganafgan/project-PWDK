@@ -120,7 +120,7 @@ const Home = (props) => {
 
     return (
         <View style={styles.page}>
-            <HeaderSearch title='Cari Buku Favorite' width={300} onChangeText={(text)=>setSearch(text)} value={search} />
+            <HeaderSearch title='Cari Buku Favorite' width={300} onChangeText={(text)=>setSearch(text)} value={search} onPressFavorit={()=> props.navigation.navigate('Wishlist')} />
                 
             {
 

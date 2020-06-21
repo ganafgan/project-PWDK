@@ -1,24 +1,35 @@
 import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help } from '../pages'
+import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction } from '../pages'
 import { BottomNavigator } from '../components';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator();
+const TabTop = createMaterialTopTabNavigator();
 
 const MainApp = () => {
     return (
         <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Cart" component={Cart} />
-            <Tab.Screen name="Dashboard" component={Dashboard} />
+            <Tab.Screen name="Dashboard" component={MyTab} />
             <Tab.Screen name="Account" component={Account} />
         </Tab.Navigator>
     )
 }
 
+const MyTab = () => {
+    return(
+        <TabTop.Navigator>
+            <TabTop.Screen name='Wishlist' component={Wishlist} />
+            <TabTop.Screen name='Transaction' component={Transaction} />
+        </TabTop.Navigator>
+    )
+}
 
 const Router = () => {
     return (
@@ -36,6 +47,9 @@ const Router = () => {
             <Stack.Screen name='Wishlist' component={Wishlist} options={{headerShown: false}} />
             <Stack.Screen name='About' component={About} options={{headerShown: false}} />
             <Stack.Screen name='Help' component={Help} options={{headerShown: false}} />
+            <Stack.Screen name='MyTab' component={MyTab} options={{headerShown: false}} />
+            <Stack.Screen name='TransactionDetail' component={Transaction} options={{headerShown: false}} />
+            <Stack.Screen name='Transaction' component={TransactionDetail} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }

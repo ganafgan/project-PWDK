@@ -12,6 +12,8 @@ import ProductList from './ProductList'
 import Wishlist from './Wishlist'
 import About from './About'
 import Help from './Help'
+import Transaction from './Transaction'
+import TransactionDetail from './TransactionDetail'
 
 export {
     GetStarted,
@@ -27,5 +29,7 @@ export {
     ProductList,
     Wishlist,
     About,
-    Help
+    Help,
+    Transaction,
+    TransactionDetail
 }
