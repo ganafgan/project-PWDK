@@ -16,8 +16,7 @@ const ProductDetail = (props) => {
     const [qty, setQty] = useState(1)
 
     useEffect(()=>{getData()},[])
-    // useEffect(()=>{getData()},[data])
-    
+
     const onPlusQtyHandler = () => {
         qty < data[0].stock ? setQty(qty + 1) : data[0].stock
     }
@@ -64,10 +63,9 @@ const ProductDetail = (props) => {
 
         return filtered.map((val)=>{
             return(
-                // navigation belum jalan
+
                 <TouchableOpacity key={val.id} onPress={()=>props.navigation.replace('ProductDetail', {title : val.title, id : val.id})}>
-                {/* <TouchableOpacity key={val.id} onPress={props.onPressDataTerkait}> */}
-                    <View style={styles.rated} key={val.id}>
+                     <View style={styles.rated} key={val.id}>
                         <Gap width={20} />
                             <ListBook
                                 image={{uri : API_URL + val.url_image}}
@@ -83,7 +81,7 @@ const ProductDetail = (props) => {
             )
         })
     }
-// ==========================================================================================================
+
     const addToCartBtn = () => {
         let addToCart = {
             id_user : 1,      //id user dummy nanti ambil dari redux
@@ -156,13 +154,7 @@ const ProductDetail = (props) => {
                         bahasa = {data[0].bahasa}
                         stock = {data[0].stock}
                         deskripsi = {data[0].description}
-                        // price = {data[0].price * qty}
                         category = {data[0].category}
-                        // qty = {qty}
-                        // minQty = {()=>onMinQtyHandler()}
-                        // plusQty = {()=>onPlusQtyHandler()}
-                        // AddToCartBtn = {()=>{addToCartBtn()}}
-                        // AddToWishlistBtn = {()=>{addToWishlistBtn()}}
                     />
 
                     <View style={styles.info}>

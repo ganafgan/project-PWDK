@@ -10,7 +10,9 @@ const HeaderMain = ({title, onPress, type, button}) => {
             <Button type={type} icon='back-dark' onPress={onPress}/>
             <Text style={styles.text}>{title.length > 30 ? title.slice(0,30) + ' . . .' : title}</Text>
         </View>
+        
         : 
+
         <View style={styles.container}>
             <Text style={styles.text}>{title.length > 30 ? title.slice(0,30) + ' . . .' : title}</Text>
         </View>

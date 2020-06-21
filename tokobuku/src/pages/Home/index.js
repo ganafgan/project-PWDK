@@ -88,14 +88,14 @@ const Home = (props) => {
     }
 
     const renderSearchBook = () => {
-        //FITUR SEARCH TINGGAL BENERIN DESAINNYA
+        
         let searchBook = dataBook.filter((val)=>{
             return val.title.toLowerCase().includes(search.toLowerCase())
         })
 
         return searchBook.map((val)=>{
             return(
-                <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
+                <TouchableOpacity style={{marginVertical:10}} key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
                     <ListBook 
                         image={{uri : API_URL + val.url_image}}
                         title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
@@ -132,12 +132,12 @@ const Home = (props) => {
 
             search ?
 
-            <View style={styles.content}>
                 <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={styles.search}>
                     {/* DESAIN LISTBOOK NYA MASI BELUM BERES */}
                     {renderSearchBook()}  
+                    </View>
                 </ScrollView>
-            </View>
 
             :
 
@@ -262,6 +262,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 20,
         marginBottom: 20,
+    },
+    search : {
+        flexDirection:'row',
+        flexWrap:'wrap',
+        justifyContent: 'center',
+        flex: 1,
+        margin:10
     },
     ratedWrapper: {
 
