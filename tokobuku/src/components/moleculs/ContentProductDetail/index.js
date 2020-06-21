@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Image, StyleSheet, Text, View, ScrollView, Button, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 import ListBook from './../ListBook/index'
 import NumberFormat from 'react-number-format'
@@ -10,70 +10,8 @@ import { API_URL } from '../../../supports/constants/urlApi'
 
 const ProductDetailContent = (props) => {
 
-    const [dataTerkait, setDataTerkait] = useState(null)
-
-    useEffect(()=>{getDataTerkait()},[])
-
-    const getDataTerkait = () => {
-        var category = props.category
-        if(props.category.includes('&')){
-            category = props.category.replace('&', '%26')
-        }else{
-            category = props.category
-        }
-
-        Axios.get(API_URL + 'category/categoryfiltered?category=' + category)
-        .then((res)=>{
-            Axios.get(API_URL + 'products/filter-category/' + res.data.data[0].id  )
-            .then((res)=>{
-                setDataTerkait(res.data.data)
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
-
-    const renderDataTerkait = () => {
-        let filtered = dataTerkait.filter((val)=>{
-            return props.title !== val.title
-        })
-
-        return filtered.map((val)=>{
-            return(
-                // navigation belum jalan
-                // <TouchableOpacity key={val.id} onPress={()=>props.navigation.navigate('ProductDetail', {title : val.title, id : val.id})}>
-                    <View style={styles.rated} key={val.id}>
-                        <Gap width={20} />
-                            <ListBook
-                                image={{uri : API_URL + val.url_image}}
-                                title={val.title.length > 18 ? val.title.slice(0,10) + ' . . .' 
-                                : val.title
-                                }
-                                author={val.author}
-                                price={val.price}
-                            />
-                        <Gap width={10} />
-                    </View>
-                // </TouchableOpacity>
-            )
-        })
-    }
-
-    if(dataTerkait === null){
-        return(
-        <View>
-            <Text>Loading .... (BIKIN PAGE LOADING) </Text>
-        </View>
-        )
-    }
-
     return (
         <View style={{flex:1}}>
-            <ScrollView>
                 <View style={styles.container}>
                     <Image source={props.image} style={styles.img} />
                 </View>
@@ -113,48 +51,6 @@ const ProductDetailContent = (props) => {
 
                 {/* SLOT BUAT RATING & REVIEW */}
 
-
-                <View style={styles.info}>
-                    <Text style={styles.title}>Produk Terkait</Text>
-                    <View style={styles.wrapperScroll}>
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            {renderDataTerkait()}
-                        </ScrollView>
-                    </View>
-                </View>
-            </ScrollView>
-
-            <View style={styles.footer}>
-                <View style={{flex:1}}>
-                    <View style={{flexDirection:'row', paddingHorizontal:20, justifyContent:'space-between'}}>
-                        <NumberFormat 
-                        value={props.price} displayType={'text'} decimalSeparator={','} thousandSeparator={'.'} prefix={'Rp'} 
-                        renderText={value=><Text style={styles.title}>{value}</Text>} />
-                        
-                        <View style={styles.content2}>
-                            <TouchableOpacity onPress={props.minQty}>
-                                <IconMinusButton />
-                            </TouchableOpacity>
-                                <Gap width={5} />
-                                <Text>{props.qty}</Text>
-                                <Gap width={5} />
-                            <TouchableOpacity onPress={props.plusQty}>
-                                <IconPlusButton />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
-
-                    <View style={{flexDirection:'row'}}>
-                        <View style={{flex:1}}>
-                            <Button title='Add To Cart' color={colors.primary} onPress={props.AddToCartBtn}/>
-                        </View>
-                        <View style={{flex:1}}>
-                            <Button title='Add To Wishlist' color={colors.secondary} onPress={props.AddToWishlistBtn}/>
-                        </View>
-                    </View>
-                </View>
-            </View>
         </View>
     )
 }

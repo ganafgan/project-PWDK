@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     margin : {
-        marginVertical: 10,
+        marginVertical: 10
     }
 })

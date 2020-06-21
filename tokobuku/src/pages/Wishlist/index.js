@@ -15,7 +15,7 @@ const Wishlist = (props) => {
     useEffect(()=>{getDataWishlist()},[])
 
     const getDataWishlist = () => {
-        let id_user = 1  // //id user dummy nanti ambil dari redux
+        let id_user = 1  // //id user dummy nanti ambil dari redux atau props params route dari home
 
         Axios.get(API_URL+'wishlist/'+id_user)
         .then((res)=>{
@@ -88,14 +88,14 @@ const Wishlist = (props) => {
     if(data.length === 0){
         return(
             <View>
-                <Text>Loading . . . </Text>
+                <Text>Wishlist . . . </Text>
             </View>
         )
     }
 
     return (
         <View style={styles.container}>
-            <HeaderMain button={true} style={styles.header} type='icon-only' title='Wishlist' />
+            <HeaderMain button={true}  style={styles.header} type='icon-only' title='Wishlist' onPress={()=>props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 {renderWishlist()}
             </ScrollView>  
