@@ -7,6 +7,7 @@ import Axios from 'axios'
 import { API_URL } from '../../../supports/constants/urlApi'
 
 
+
 const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit}) => {
     // const [data, setData] = useState(null)
 
@@ -55,7 +56,6 @@ const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit}) => {
     //         </View>
     //     )
     // }
-
     
     return (
         <View style={styles.container}>
@@ -67,7 +67,7 @@ const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit}) => {
                 <Gap width={5} />
             </View>
 
-            {/* {renderWishlist()} */}
+            {/* {renderWishlist()} */}       
         </View>
     )
 }
