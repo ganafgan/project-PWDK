@@ -95,7 +95,7 @@ const Wishlist = (props) => {
 
     return (
         <View style={styles.container}>
-            <HeaderMain button={true} style={styles.header} type='icon-only' title='Wishlist' />
+            <HeaderMain button={true} style={styles.header} type='icon-only' title='Wishlist' onPress={()=>props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 {renderWishlist()}
             </ScrollView>  
