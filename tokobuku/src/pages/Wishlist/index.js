@@ -99,7 +99,6 @@ const Wishlist = (props) => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 {renderWishlist()}
             </ScrollView>  
-
         </View>
         
         

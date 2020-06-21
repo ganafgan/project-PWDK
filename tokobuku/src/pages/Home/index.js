@@ -13,7 +13,7 @@ const Home = (props) => {
     const [dataBook, setDataBook] = useState(null)
     const [search, setSearch] = useState('')
     
-    useEffect(()=>{getCategory(),getDataBook(),getPublishers()}, [])
+    useEffect(()=>{getCategory(),getDataBook(),getPublishers(), console.log(category)}, [])
 
     const getCategory = () => {
         Axios.get(API_URL + 'category')
@@ -122,10 +122,10 @@ const Home = (props) => {
         <View style={styles.page}>
             <HeaderSearch 
             title='Cari Buku Favorite' 
-            width={330} 
+            width={300} 
             onChangeText={(text)=>setSearch(text)} 
-            value={search}
-            onPressFavorit={()=>props.navigation.navigate('Wishlist')}
+            value={search} 
+            onPressFavorite={()=>props.navigation.navigate('Wishlist')}
             />
                 
             {

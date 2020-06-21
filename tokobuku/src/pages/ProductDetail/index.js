@@ -63,8 +63,9 @@ const ProductDetail = (props) => {
 
         return filtered.map((val)=>{
             return(
+
                 <TouchableOpacity key={val.id} onPress={()=>props.navigation.replace('ProductDetail', {title : val.title, id : val.id})}>
-                    <View style={styles.rated} key={val.id}>
+                     <View style={styles.rated} key={val.id}>
                         <Gap width={20} />
                             <ListBook
                                 image={{uri : API_URL + val.url_image}}
@@ -80,7 +81,7 @@ const ProductDetail = (props) => {
             )
         })
     }
-    
+
     const addToCartBtn = () => {
         let addToCart = {
             id_user : 1,      //id user dummy nanti ambil dari redux
@@ -136,7 +137,7 @@ const ProductDetail = (props) => {
 
     return (
         <View style={styles.container}>
-            <HeaderMain button={true} style={styles.header} type='icon-only' title={props.route.params.title} onPress={() => props.navigation.goBack()} />
+            <HeaderMain button={true} style={styles.header} type='icon-only' title={props.route.params.title} onPress={() => props.navigation.navigate('MainApp')} />
             {
             data === null || dataTerkait === null ?
             <Text>Loading ...</Text>

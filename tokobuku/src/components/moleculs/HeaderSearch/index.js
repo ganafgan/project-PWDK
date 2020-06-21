@@ -5,6 +5,7 @@ import { IconFavoriet, IconCart } from '../../../assets'
 
 
 
+
 const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit, onPressCart}) => {
     return (
         <View style={styles.container}>
@@ -14,7 +15,7 @@ const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit, onPres
                     <IconFavoriet />
                 </TouchableOpacity>
             </View>
-        </View>
+      </View>
     )
 }
 
