@@ -89,17 +89,48 @@ const ProductDetail = (props) => {
             qty : qty
         }
 
-        Axios.post(API_URL+'cart', addToCart)
+        let getSpecificCart = {
+            id_user : 1, //id user dummy nanti ambil dari redux
+            id_product : data[0].id
+        }
+
+        Axios.post(API_URL+'cart/detail', getSpecificCart)
         .then((res)=>{
-            if(!res.data.error){
-                Alert.alert('Add To Cart Success!')
+            if(res.data.data.length > 0){
+                let qty_lama = res.data.data[0].qty
+                let qty_baru = qty_lama + qty
+                let stock = data[0].stock
+
+                if(qty_baru > stock){
+                    return Alert.alert('Stock tidak cukup')
+                }
+
+                Axios.patch(API_URL+'cart/'+res.data.data[0].id, {qty : qty_baru})
+                .then((res)=>{
+                    if(!res.data.error){
+                        Alert.alert('Update Qty Cart Success!')
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+
+            }else{
+
+                Axios.post(API_URL+'cart', addToCart)
+                .then((res)=>{
+                    if(!res.data.error){
+                        Alert.alert('Add To Cart Success!')
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
             }
         })
         .catch((err)=>{
             console.log(err)
         })
-
-        
     }
 
 
@@ -124,7 +155,7 @@ const ProductDetail = (props) => {
                     console.log(err)
                 })
             }else{
-                Alert.alert('This Product Is Already On The Wishlist')
+                Alert.alert('This Product Is Already On Wishlist')
             }
         })
         .catch((err)=>{

@@ -3,11 +3,11 @@ import { StyleSheet, View } from 'react-native'
 import { ContentCarts, NullCarts, HeaderMain } from '../../components/'
 import { colors } from '../../utils'
 
-const Cart = () => { 
+const Cart = (props) => { 
     return (
         <View style={styles.container}>
             <HeaderMain title='Cart' />
-            <ContentCarts />
+            <ContentCarts navigation={props.navigation}/>
         </View>
     )
 }
