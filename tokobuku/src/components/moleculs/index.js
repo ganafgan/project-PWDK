@@ -11,6 +11,7 @@ import HeaderMain from './HeaderMain';
 import Profile from './Profile';
 import ListMenuProfile from './ListMenuProfile';
 import ProductDetailContent from './ContentProductDetail'
+import Loading from './Loading'
 
 export {
    Header,
@@ -25,5 +26,6 @@ export {
    HeaderMain,
    Profile,
    ListMenuProfile,
-   ProductDetailContent
+   ProductDetailContent,
+   Loading
 }

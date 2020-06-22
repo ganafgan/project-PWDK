@@ -6,12 +6,12 @@ import { IconFavoriet, IconCart } from '../../../assets'
 
 
 
-const HeaderSearch = ({title, width, onChangeText, value, onPressFavorit, onPressCart}) => {
+const HeaderSearch = ({title, width, onChangeText, value, onPressFavorite, onPressCart}) => {
     return (
         <View style={styles.container}>
             <TextInput style={styles.input(width)} placeholder={title} onChangeText={onChangeText} value={value} />
             <View style={{flexDirection:"row",flex:1,justifyContent:'flex-end', alignItems:'center'}}>
-                <TouchableOpacity onPress={onPressFavorit}>
+                <TouchableOpacity onPress={onPressFavorite}>
                     <IconFavoriet />
                 </TouchableOpacity>
             </View>

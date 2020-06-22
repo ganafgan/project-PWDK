@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit, NullCarts, ListBook } from '../../components';
+import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit, NullCarts, ListBook, Loading } from '../../components';
 import { fonts, colors } from '../../utils';
 import Axios from 'axios';
 import { API_URL } from './../../supports/constants/urlApi';
@@ -113,7 +113,8 @@ const Home = (props) => {
         return(
             <View style={styles.page}>
                 {/* BELUM BIKIN PAGE LOADING */}
-                <Text>Butuh Page Loading ...</Text>
+                {/* <Text>Butuh Page Loading ...</Text> */}
+                <Loading />
             </View>
         )
     }
