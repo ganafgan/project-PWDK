@@ -24,7 +24,7 @@ const addToCart = (req,res) => {
 
 const getDataCart = (req,res) => {
     let id_user = req.params.id_user
-    let sql = `select c.id, c.id_user, c.id_product, qty, p.name, p.price, p.stock, pi.url_image from cart c
+    let sql = `select c.id, c.id_user, c.id_product, qty, p.name, p.author, p.price, p.stock, pi.url_image from cart c
     join products p on c.id_product = p.id
     join product_images pi on p.id = pi.product_id where c.id_user = ?;`
 

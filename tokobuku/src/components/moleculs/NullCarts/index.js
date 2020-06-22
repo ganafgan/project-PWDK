@@ -5,7 +5,7 @@ import { Button } from '../../atoms'
 import { colors, fonts } from '../../../utils'
 
 
-const NullCarts = () => {
+const NullCarts = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.troli}>
@@ -14,7 +14,7 @@ const NullCarts = () => {
                 <Text style={styles.info}>Silahkan lakukan pemesanan Buku yang kamu inginkan untuk melanjutkan transaksi</Text>
             </View>
             <View>
-                <Button title='Order a Book' />
+                <Button title='Order a Book' onPress={()=>props.navigation.navigate('Home')} />
             </View>
         </View>
     )
