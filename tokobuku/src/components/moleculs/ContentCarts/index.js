@@ -1,90 +1,214 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Image, ScrollView, Button, Alert, TouchableOpacity, RefreshControl } from 'react-native'
 import { ILBook1, ILBook2, ILBook3, IconMinusButton, IconPlusButton } from '../../../assets'
-import { Button, Gap } from '../../atoms'
+import { Gap } from '../../atoms'
 import { colors, fonts } from '../../../utils'
+import Axios from 'axios'
+import { API_URL } from '../../../supports/constants/urlApi'
+import NumberFormat from 'react-number-format';
+import NullCarts from '../NullCarts'
 
-const ContentCarts = () => {
-    // Deklarasi variabel state baru "Count"
-    const [count, setCount] = useState(0);
+const ContentCarts = (props) => {
+   
+    const [data, setData] = useState(null)
+    const [totalPrice, setTotalPrice] = useState(null)
+    const [refreshing, setRefreshing] = useState(false)
+
+    useEffect(()=>{getDataCart()},[]) 
+    useEffect(()=>{getDataCart()},[data]) 
     
-    function buttonClickHandlerMinus() {
-        setCount(count - 1);
-	}
-    
-    function buttonClickHandlerPlus() {
-        setCount(count + 1);
+    const getDataCart = () => {
+        let user_id = 1  //nanti get data user dari redux
+
+        Axios.get(API_URL+'cart/'+user_id)
+        .then((res)=>{
+            if(!res.data.error){
+                setData(res.data.data)
+                var totalPrice = 0
+                res.data.data.map((val)=>{
+                    totalPrice += (val.price * val.qty)
+                })
+                setTotalPrice(totalPrice)
+                setRefreshing(false)
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const onChangeQtyHandler = (minOrPlus, id, qtyNow, index) => {
+        let qtyUpdate;
+        if(minOrPlus === 'min'){
+            if(qtyNow === 1){
+                return
+            }
+            qtyUpdate = Number(qtyNow) - 1
+        }else{
+            if(qtyNow === data[index].stock){
+                return 
+            }
+            qtyUpdate = Number(qtyNow) + 1
+        }
+
+        Axios.patch(API_URL + 'cart/' + id, {qty:qtyUpdate})
+        .then((res)=>{
+            if(!res.data.error){
+                getDataCart()
+            }else{
+                console.log(res.data)
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+    }
+
+    const onDeleteBtn = (id) => {
+        Axios.delete(API_URL+'cart/'+id)
+        .then((res)=>{
+            if(!res.data.error){
+                Alert.alert('Delete Cart Success')
+                getDataCart()
+                totalPriceCount()
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const createTwoButtonAlert = () => 
+    Alert.alert(
+        "Checkout",
+        "Are You Sure Want to Checkout",
+        [
+            {
+                text:"Cancel",
+                onPress : ()=>console.log('Cancel Pressed'),
+                style:"cancel"
+            },
+            { text : "Yes", onPress: onBayarClick }
+        ],
+        { cancelable : false }
+    );
+
+    const onBayarClick = () => {
+        Alert.alert('checkout berhasil')
+        let dataTransaction = {
+            total_transaction : totalPrice,
+            total_item : data.length,
+            transaction_status_id : 1,
+            users_id : 1      // masi dummy nanti ambil dari redux
+        }
+        let dataTransactionDetail = data.map((val)=>{
+            return{
+                product_name : val.name,
+                product_price : val.price,
+                qty : val.qty
+            }
+        })
+
+        Axios.post(API_URL + 'transaction', {dataTransaction, dataTransactionDetail})
+        .then((res)=>{
+            if(!res.data.error){
+                Alert.alert(res.data.message)  // alertnya masi ngebug 2 kali muncul
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+    }
+
+
+    const renderDataCart = () => {
+        return data.map((val, index)=>{
+            return(
+                <View key={val.id}>
+                    <View style={styles.page}>
+                        <TouchableOpacity onPress={()=>props.navigation.navigate('ProductDetail', {title : val.name, id : val.id_product})}>
+                            <Image source={{uri:API_URL+ val.url_image}} style={styles.img} />
+                        </TouchableOpacity>
+                        <View style={styles.content}>
+                            <Text style={styles.title}>{val.name.length > 28 ? val.name.slice(0,20) + ' . . .' : val.name}</Text>
+                            <Gap height={5} />
+                            <Text style={styles.author}>{val.author}</Text>
+                            <Gap height={20} />
+                            <NumberFormat 
+                                value={val.price} displayType={'text'} decimalSeparator={','} thousandSeparator={'.'} prefix={'Rp'} 
+                                renderText={value=> <Text style={styles.price}>{value}</Text>} />
+                        </View>
+                        <View style={{flex:1, justifyContent:'space-around'}}>
+                            <View style={styles.content2}>
+                                <IconMinusButton onPress={()=>onChangeQtyHandler('min', val.id, val.qty, index)} />
+                                <Gap width={5} />
+                                <Text>{val.qty}</Text>
+                                <Gap width={5} />
+                                <IconPlusButton onPress={()=>onChangeQtyHandler('plus', val.id, val.qty, index)}/>
+                            </View>
+                            <View>
+                                <Button title='delete' color='red' onPress={()=>onDeleteBtn(val.id)} />
+                            </View>
+                        </View>
+                    </View>
+                    <Gap height={20} />
+                </View>
+            )
+        })
+    }
+
+    if(data === null){
+        return(
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
     }
 
     return (
         <View style={styles.container}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.page}>
-                    <Image source={ILBook1} style={styles.img} />
-                    <View style={styles.content}>
-                        <Text style={styles.title}>Rahasia Wanita</Text>
-                        <Gap height={5} />
-                        <Text style={styles.author}>Giran Munggaran</Text>
-                        <Gap height={20} />
-                        <Text style={styles.price}>Rp 150.000</Text>
-                    </View>
-                    <View style={styles.content2}>
-                        <IconMinusButton onPress={() => buttonClickHandlerMinus() } />
-                        <Gap width={5} />
-                        <Text>{ count }</Text>
-                        <Gap width={5} />
-                        <IconPlusButton onPress={() => buttonClickHandlerPlus() } />
-                    </View>
-                </View>
-                <Gap height={20} />
+            {
+                data.length === 0 ?
+                    <NullCarts navigation={props.navigation}/>
+                :
+                
+                
+                <ScrollView showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={()=>{
+                            setRefreshing(true)
+                            getDataCart()
+                        }}
+                        />
+                    }>
+                    {renderDataCart()}
+                </ScrollView>  
+            }
 
-                <View style={styles.page}>
-                    <Image source={ILBook2} style={styles.img} />
-                    <View style={styles.content}>
-                        <Text style={styles.title}>Mencari One Piece</Text>
-                        <Gap height={5} />
-                        <Text style={styles.author}>Luffy</Text>
-                        <Gap height={20} />
-                        <Text style={styles.price}>Rp 100.000</Text>
-                    </View>
-                    <View style={styles.content2}>
-                        <IconMinusButton onPress={() => buttonClickHandlerMinus()} />
-                        <Gap width={5} />
-                        <Text>{ count }</Text>
-                        <Gap width={5} />
-                        <IconPlusButton onPress={() => buttonClickHandlerPlus()} />
-                    </View>
-                </View>
-                <Gap height={20} />
 
-                <View style={styles.page}>
-                    <Image source={ILBook3} style={styles.img} />
-                    <View style={styles.content}>
-                        <Text style={styles.title}>Menaklukan Ukhti</Text>
-                        <Gap height={5} />
-                        <Text style={styles.author}>Afgan Taufiq Hidayat</Text>
-                        <Gap height={20} />
-                        <Text style={styles.price}>Rp 125.000</Text>
-                    </View>
-                    <View style={styles.content2}>
-                        <IconMinusButton onPress={() => buttonClickHandlerMinus()} />
-                        <Gap width={5} />
-                        <Text>{count}</Text>
-                        <Gap width={5} />
-                        <IconPlusButton onPress={() => buttonClickHandlerPlus()} />
-                    </View>
-                </View>
-                <Gap height={20} />
-            </ScrollView>  
+            {
+                data.length === 0 ?
+                <View/>
 
-            <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: 'skyblue', marginLeft:-20, marginRight:-20, marginBottom:-20,}}>
-                <View style={{justifyContent:'center', alignItems:'center',paddingLeft:20}}><Text>Rp.529.000</Text></View>
-                <View style={{justifyContent:'center', alignItems:'center', paddingRight:20}}><Button title="Checkout" /></View>
+                :
+
+                <View style={{flexDirection:'row', justifyContent:'space-between', height:60, backgroundColor: '#7D8797', marginLeft:-20, marginRight:-20, marginBottom:-20,}}>
+                    <View style={{justifyContent:'center', alignItems:'center',paddingLeft:20}}>
+                        <NumberFormat 
+                            value={totalPrice} displayType={'text'} decimalSeparator={','} thousandSeparator={'.'} prefix={'Rp'} 
+                            renderText={value=><Text style={styles.price}>TOTAL : {value}</Text>} />
+                    </View>
+                    <View style={{justifyContent:'center', alignItems:'center', paddingRight:20}}>
+                        <Button title="Checkout" onPress={createTwoButtonAlert} />
+                    </View>
+                </View>                 
+            }
+            
+
+            
             </View>
-
-                 
-        </View>
-        
     )
 }
 
@@ -107,8 +231,7 @@ const styles = StyleSheet.create({
     },
     content2: {
         flexDirection: 'row',
-        marginLeft: 20,
-        marginTop: 65,       
+        marginLeft: 20,      
     },
     img: {
         height: 150,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit, NullCarts, ListBook } from '../../components';
+import { HeaderSearch, BookCategory, RatedBook, Gap, Penerbit, NullCarts, ListBook, Loading } from '../../components';
 import { fonts, colors } from '../../utils';
 import Axios from 'axios';
 import { API_URL } from './../../supports/constants/urlApi';
@@ -13,7 +13,7 @@ const Home = (props) => {
     const [dataBook, setDataBook] = useState(null)
     const [search, setSearch] = useState('')
     
-    useEffect(()=>{getCategory(),getDataBook(),getPublishers(), console.log(category)}, [])
+    useEffect(()=>{getCategory(),getDataBook(),getPublishers()},[])
 
     const getCategory = () => {
         Axios.get(API_URL + 'category')
@@ -113,7 +113,8 @@ const Home = (props) => {
         return(
             <View style={styles.page}>
                 {/* BELUM BIKIN PAGE LOADING */}
-                <Text>Butuh Page Loading ...</Text>
+                {/* <Text>Butuh Page Loading ...</Text> */}
+                <Loading />
             </View>
         )
     }
@@ -122,10 +123,10 @@ const Home = (props) => {
         <View style={styles.page}>
             <HeaderSearch 
             title='Cari Buku Favorite' 
-            width={300} 
+            width={330} 
             onChangeText={(text)=>setSearch(text)} 
             value={search} 
-            onPressFavorite={()=>props.navigation.navigate('Wishlist')}
+            onPressFavorit={()=>props.navigation.navigate('Wishlist')}
             />
                 
             {

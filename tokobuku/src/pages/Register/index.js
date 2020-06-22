@@ -10,7 +10,7 @@ const Register = ({navigation}) => {
         <View style={styles.page}>
             <Header onPress={()=> navigation.goBack()} title='Daftar Akun'/>
             <View style={styles.content}>
-                <Input label='Full Name' onChangeText={(value) => setFullName(value)} value={value} />
+                <Input label='Full Name' onChangeText={(value) => setFullName(value)} value={fullName} />
                 <Gap height={24} />
                 <Input label='Email' />
                 <Gap height={24} />
