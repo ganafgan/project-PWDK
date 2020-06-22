@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginRight: 10,
         marginBottom : 20,
-        width: 150,
-        height: 130
+        width: 100,
+        height: 100
     },
     img: {
-      width: 120,
-      height: 80,
+      width: 70,
+      height: 50,
       marginBottom: 15,
       resizeMode : "contain"
     },

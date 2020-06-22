@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Image, ScrollView, Button, Alert } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Button, Alert, TouchableOpacity } from 'react-native'
 import { HeaderMain } from '../../components';
 import { colors, fonts } from './../../utils';
 import { Gap } from './../../components/atoms'
 import Axios from 'axios';
 import { API_URL } from '../../supports/constants/urlApi';
 import NumberFormat from 'react-number-format';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 const Wishlist = (props) => {
 
@@ -28,8 +28,44 @@ const Wishlist = (props) => {
         })
     }
 
-    const addToCart = () => {
-        Alert.alert('Add to cart')
+    const addToCart = (id_product, id_user, id) => {
+        //id_user mending ambil dari redux
+        Axios.get(API_URL+'cart/'+id_user)
+        .then((res)=>{
+            if(!res.data.error){
+                let filtered = res.data.data.filter((val)=>{
+                    return val.id_product === id_product
+                })
+    
+                if(filtered.length === 0){
+                    Axios.post(API_URL+'cart', {id_user : id_user, id_product : id_product, qty : 1})
+                    .then((res)=>{
+                        if(!res.data.error){
+
+                            Axios.delete(API_URL+'wishlist/'+id)
+                            .then((res)=>{
+                                if(!res.data.error){
+                                    Alert.alert('Add To Cart Success!')
+                                    getDataWishlist()
+                                }
+                            })
+                            .catch((err)=>{
+                                console.log(err)
+                            })
+                        }
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                    })
+                }else{
+                    Alert.alert('This Product Is Already On Cart')
+                }
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        
     }
 
     const deleteDataWishlist = (id) => {
@@ -45,14 +81,12 @@ const Wishlist = (props) => {
         })
     }
 
-    
-
-
 
     const renderWishlist = () => {
         return data.map((val)=>{
             return(
                 <View key={val.id}>
+                    <Gap height={10} />
                     <View style={styles.page}>
                         <TouchableOpacity onPress={()=>props.navigation.navigate('ProductDetail', {title : val.name, id : val.id_product})}>
                             <Image source={{uri:API_URL+val.url_image}} style={styles.img} />
@@ -67,7 +101,7 @@ const Wishlist = (props) => {
                                 renderText={value=><Text style={styles.price}>{value}</Text>} />
                         </View>
                         <View style={styles.content2}>
-                            <View style={{marginVertical:10}}><Button onPress={()=>addToCart()} title="Add To Cart" /></View>
+                            <View style={{marginVertical:10}}><Button onPress={()=>addToCart(val.id_product, val.id_user, val.id)} title="Add To Cart" /></View>
                             <View style={{marginVertical:10}}><Button onPress={()=>deleteDataWishlist(val.id)} color='red' title="Delete" /></View>
                         </View>
                     </View>
@@ -95,7 +129,6 @@ const Wishlist = (props) => {
 
     return (
         <View style={styles.container}>
-            <HeaderMain button={true}  style={styles.header} type='icon-only' title='Wishlist' onPress={()=>props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 {renderWishlist()}
             </ScrollView>  
@@ -110,7 +143,8 @@ export default Wishlist;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
+        padding : 10
     },
     page: {
         padding: 20,
