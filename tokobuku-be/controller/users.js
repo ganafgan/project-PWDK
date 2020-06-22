@@ -4,7 +4,7 @@ const db = require('./../database/mysql')
 const getUserDetailById = (req,res) => {
     let id = req.params.id_user
     let sql = `select u.id, u.username, u.email, u.role, u.isVerified, 
-    ud.first_name, ud.last_name, ud.phone_number, ud.address, ud.kelurahan, 
+    ud.fullname, ud.phone_number, ud.address, ud.kelurahan, 
     ud.kecamatan, ud.kota, ud.provinsi, ud.url_profile_image from users u
     join user_detail ud on u.id = ud.users_id where u.id = ?;`
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction } from '../pages'
+import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction, EditProfile } from '../pages'
 import { BottomNavigator } from '../components';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -33,7 +33,7 @@ const MyTab = () => {
 
 const Router = () => {
     return (
-        <Stack.Navigator initialRouteName='MainApp'>
+        <Stack.Navigator initialRouteName='Splash'>
             <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}} />
             <Stack.Screen name='GetStarted' component={GetStarted} options={{headerShown: false}} />
             <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
@@ -50,6 +50,7 @@ const Router = () => {
             <Stack.Screen name='MyTab' component={MyTab} options={{headerShown: false}} />
             <Stack.Screen name='TransactionDetail' component={Transaction} options={{headerShown: false}} />
             <Stack.Screen name='Transaction' component={TransactionDetail} options={{headerShown: false}} />
+            <Stack.Screen name='EditProfile' component={EditProfile} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }
