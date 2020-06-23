@@ -5,11 +5,11 @@ import { colors } from '../../utils'
 
 const Splash = ({navigation}) => {
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            navigation.replace('GetStarted')
-        }, 3000)
-    }, [])
+    // useEffect(()=>{
+    //     setTimeout(()=>{
+    //         navigation.replace('GetStarted')
+    //     }, 3000)
+    // }, [])
     return (
         <View style={styles.page}>
             <Image source={ILLogo} style={styles.img} />

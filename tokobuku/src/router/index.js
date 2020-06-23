@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction, EditProfile } from '../pages'
+import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction, EditProfile, Otp } from '../pages'
 import { BottomNavigator } from '../components';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux'
+import { saveUserData } from './../redux/actions/userAction'
 
 
 const Stack = createStackNavigator()
@@ -31,9 +33,9 @@ const MyTab = () => {
     )
 }
 
-const Router = () => {
-    return (
-        <Stack.Navigator initialRouteName='Splash'>
+const InitialRouter = (initialRouteName) => {
+    return(
+        <Stack.Navigator initialRouteName={initialRouteName}>
             <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}} />
             <Stack.Screen name='GetStarted' component={GetStarted} options={{headerShown: false}} />
             <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
@@ -51,8 +53,47 @@ const Router = () => {
             <Stack.Screen name='TransactionDetail' component={Transaction} options={{headerShown: false}} />
             <Stack.Screen name='Transaction' component={TransactionDetail} options={{headerShown: false}} />
             <Stack.Screen name='EditProfile' component={EditProfile} options={{headerShown: false}} />
+            <Stack.Screen name='Otp' component={Otp} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }
 
-export default Router
+
+const Router = (props) => {
+
+    const [splash, setSplash] = useState(false)
+    const [user,setUser] = useState(false)
+
+    useEffect(()=>{
+        setSplash(true)
+        AsyncStorage.getItem('data_user', (err,result) => {
+            if(err) console.log(err)
+            console.log(result)
+            if(result){
+                var data = JSON.parse(result)
+                props.saveUserData(data)
+                setUser(true)
+                setSplash(false)
+            }else{
+                setSplash(false)
+            }
+        })
+        },[] )
+
+
+
+    if(splash) return <Splash/>
+    if(user){
+        return InitialRouter('MainApp')
+    }else{
+        return InitialRouter('GetStarted')}
+    
+}
+
+const mapStateToProps = (state) => {
+    return{
+        user : state.user
+    }
+}
+
+export default connect(mapStateToProps,{saveUserData})(Router)

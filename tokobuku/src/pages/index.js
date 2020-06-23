@@ -15,6 +15,7 @@ import Help from './Help'
 import Transaction from './Transaction'
 import TransactionDetail from './TransactionDetail'
 import EditProfile from './EditProfile'
+import Otp from './Otp'
 
 export {
     GetStarted,
@@ -33,5 +34,6 @@ export {
     Help,
     Transaction,
     TransactionDetail,
-    EditProfile
+    EditProfile,
+    Otp
 }
