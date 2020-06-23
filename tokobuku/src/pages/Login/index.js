@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { saveUserData } from './../../redux/actions/userAction'
 
 
-const Login = (props,{navigation}) => {
+const Login = (props) => {
     
     const [email, setEmail]= useState(null)
     const [password, setPassword]= useState(null)
@@ -82,9 +82,10 @@ export default connect(mapStateToProps,{saveUserData})(Login)
 
 const styles = StyleSheet.create({
     page: {
-        padding: 40,
         flex: 1,
-        backgroundColor: colors.white
+        padding: 40,
+        backgroundColor: colors.white,
+
     },
     logo: {
         height: 80,
@@ -95,6 +96,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-SemiBold',
         color: colors.text.primary,
         marginTop: 40,
-        marginBottom: 40
     }
 })

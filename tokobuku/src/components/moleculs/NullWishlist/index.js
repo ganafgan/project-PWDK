@@ -16,7 +16,9 @@ export default NullWishlist
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text1: {
         fontSize: 20,
