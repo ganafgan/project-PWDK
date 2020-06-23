@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import { colors } from '../../../utils'
 
-const Input = ({label, onChangeText, value}) => {
+const Input = ({label, onChangeText, value, disable}) => {
+
+    const [border, setBorder] = useState(colors.border)
+
+    const onFocusForm = () => {
+        setBorder(colors.primary)
+    }
+
+    const onBlurForm = () => {
+        setBorder(colors.border)
+    }
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
-            <TextInput style={styles.input} onChangeText={onChangeText} value={value}/>
+            <TextInput 
+            style={styles.input(border)} 
+            onChangeText={onChangeText} 
+            value={value}
+            editable={!disable}
+            selectTextOnFocus={!disable}
+            onFocus={onFocusForm}
+            onBlur={onBlurForm}
+            />
         </View>
     )
 }
@@ -14,12 +32,12 @@ const Input = ({label, onChangeText, value}) => {
 export default Input
 
 const styles = StyleSheet.create({
-    input: {
+    input: (border) => ({
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: border,
         borderRadius: 10,
         padding: 12
-    },
+    }),
     label: {
         fontSize: 16,
         color: colors.text.secondary,
