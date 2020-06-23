@@ -6,26 +6,6 @@ const transporter = require('./../helpers/nodemailerTransporter');
 
 const register = (req,res) => {
     const data = req.body
-    //email validator formatnya harus bener (Ceknya di front end // npm instal validator)
-
-    //Get 4 digit Kode OTP Kasaran buat di back end ==========================================================
-    let random_1 = Math.round(Math.random() * 9)
-    let random_2 = Math.round(Math.random() * 9)
-    let random_3 = Math.round(Math.random() * 9)
-    let random_4 = Math.round(Math.random() * 9)
-    var otp = `${random_1}${random_2}${random_3}${random_4}`
-    otp = Number(otp)
-
-    //Get 4 digit Kode OTP Kasaran buat di back end ==========================================================
-
-
-    // Untuk get 4 digit Kode OTP buat di Front Endnya Pake Looping =========================================================
-    // let otp = ''
-    // for(var i = 0; i < 4; i++){
-    //     otp += Math.round(Math.random() * 9)
-    // }
-    // console.log(Number(otp))
-    // Untuk get 4 digit Kode OTP buat di Front Endnya Pake Looping ==========================================================
 
     const input = {
         username : data.username,
@@ -33,7 +13,7 @@ const register = (req,res) => {
         password : data.password,
         role : data.username.includes('admin') ? 'admin' : 'user',  //di front end reactjs gaboleh input username yang includes admin, cuma di web admin bisanya
         isVerified : data.username.includes('admin') ? 1 : 0,
-        otp : data.username.includes('admin') ? 0 : otp  
+        otp : data.username.includes('admin') ? 0 : data.otp  
     }
 
     const sqlUsernameCheck = 'select * from users where username = ?'
@@ -62,7 +42,7 @@ const register = (req,res) => {
                             const sqlInsert = 'insert into users set ?'
                             db.query(sqlInsert, input, (err, result)=>{
                                 try{
-                                    if(err) throw er
+                                    if(err) throw err
 
                                     //SETTING EMAIL VERIFICATION WITH OTP BELUM BERES
                                     if(input.isVerified === 0){
@@ -71,12 +51,17 @@ const register = (req,res) => {
                                             to : data.email,
                                             subject : "<TokoBuku> Verify Your Email Now! <TokoBuku>",
                                             html : `
-                                            <h2>Thanks for signing up! Here is your verification code : ${otp} <h2>
+                                            <h2>Thanks for signing up! Here is your verification code : ${input.otp} <h2>
                                             `
                                         }).then((response)=>{
+
+                                            const token = createJwt({id : result.insertId, username : input.username, email : input.email, role : input.role})
+
                                             res.json({
                                                 error : false,
-                                                message : "Register Success, Check your Email to Verify"
+                                                message : "Register Success, Check your Email to Verify",
+                                                data : {id : result.insertId, username : input.username, email : input.email},
+                                                token : token
                                             })
                                         })
                                         .catch((err)=>{
@@ -121,25 +106,82 @@ const verify = (req,res) => {
     // const dataToken = decodedToken(token)
     // console.log(dataToken)
 
-    // let sqlUpdate = 'update users set verified = 1 where id = ? and email = ?;'
-    // db.query(sqlUpdate, [dataToken.id, dataToken.email], (err, result)=>{
-    //     try{
-    //         if(err) throw err
-    //         res.json({
-    //             error : false,
-    //             message : "verify success"
-    //         })
+    const data = req.body
 
-    //     }catch(err){
-    //         res.json({
-    //             error : true, 
-    //             message : err.message
-    //         })
-    //     }
-    // })
+    let sql = 'select * from users where id = ?'
+    db.query(sql, data.id, (err, result)=>{
+        try{
+            if(err) throw err
 
+            if(Number(data.otp) === Number(result[0].otp)){
+                let sqlUpdate = 'update users set isVerified = 1 where id = ? and email = ?;'
+                db.query(sqlUpdate, [data.id, data.email], (err, result)=>{
+                    try{
+                        if(err) throw err
+                        res.json({
+                            error : false,
+                            message : "verify success"
+                        })
+            
+                    }catch(err){
+                        res.json({
+                            error : true, 
+                            message : err.message
+                        })
+                    }
+                })
+            }else{
+                res.json({
+                    error : true,
+                    message : 'code did not match, please resend the code'
+                })
+            }
+
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
 }
 
+
+const resendOtp = (req,res) => {
+    const data = req.body
+    console.log(data)
+
+    let sql = 'update users set otp = ? where id = ? and email = ?'
+    db.query(sql, [data.otp, data.id, data.email], (err,result)=>{
+        try{
+            if(err) throw err
+            
+
+            transporter.sendMail({
+                from : "TokoBuku",
+                to : data.email,
+                subject : "<TokoBuku> Verify Your Email Now! <TokoBuku>",
+                html : `
+                <h2>Thanks for signing up! Here is your verification code : ${data.otp} <h2>
+                `
+            }).then((response)=>{
+                res.json({
+                    error : false,
+                    message : "Resend New Code Success, Check Your Email"
+                })
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
+}
 
 
 const login = (req,res) => {
@@ -148,11 +190,11 @@ const login = (req,res) => {
     const afterHashing = passwordHasher(data.password)
     data.password = afterHashing
 
-    let sql = 'select * from users where username = ? and password = ?'
-    db.query(sql, [data.username, data.password], (err, result)=>{
+    let sql = 'select * from users where email = ? and password = ?'
+    db.query(sql, [data.email, data.password], (err, result)=>{
         try{
             if(err) throw err
-            if(result.length === 0) throw {error : true, message : 'username or password invalid'}
+            if(result.length === 0) throw {error : true, message : 'email or password invalid'}
             // if(result[0].isVerified === 0) throw {error : true, message : 'Please Verify Your Email'}
 
             const dataUser = result[0]
@@ -254,5 +296,7 @@ module.exports = {
     verify,
     login,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    resetPassword,
+    resendOtp
 }

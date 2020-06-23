@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    user : 'USER Dari REDUX'
+    user : null
 }
     
 

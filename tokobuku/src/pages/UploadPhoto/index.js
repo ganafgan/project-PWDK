@@ -1,10 +1,15 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Alert } from 'react-native'
 import { ILNullPhoto, IconAddPhoto } from '../../assets'
 import { Button, Header, Link, Gap } from '../../components'
 import { colors, fonts } from '../../utils'
 
-const UploadPhoto = () => { 
+const UploadPhoto = (props) => { 
+
+    const onUploadBtn = () => {
+        Alert.alert('photo uploaded')
+    }
+
     return (
         <View style={styles.page}>
             <Header title='Upload Photo' />
@@ -18,9 +23,9 @@ const UploadPhoto = () => {
                     <Text style={styles.profession}>Product Designer</Text>
                 </View>
                 <View>
-                    <Button title='Upload and Continue' />
+                    <Button title='Upload and Continue' onPress={onUploadBtn} />
                     <Gap height={30} />
-                    <Link title='Skip for this' align='center' size={16} />
+                    <Link title='Skip for this' onPress={()=>props.navigation.navigate('MainApp')} align='center' size={16} />
                 </View>
             </View>
         </View>
