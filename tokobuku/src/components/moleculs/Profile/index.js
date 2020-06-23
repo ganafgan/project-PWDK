@@ -1,17 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { ILWomen } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 import { Gap } from '../../atoms'
 
-const Profile = () => {
+const Profile = ({name, onPress}) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.borderProfile}>
                 <Image source={ILWomen} style={styles.img} />
             </View>
-            <Text style={styles.name}>Natalie White</Text>
-        </View>
+            <Text style={styles.name}>{name}</Text>
+        </TouchableOpacity>
     )
 }
 

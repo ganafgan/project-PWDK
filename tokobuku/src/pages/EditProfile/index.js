@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { HeaderMain, Input, Gap, Button } from '../../components'
+import { HeaderMain, Input, Gap, Button, Profile } from '../../components'
 import { colors } from '../../utils'
 import Axios from 'axios'
 import { API_URL } from '../../supports/constants/urlApi'
+import ImagePicker from 'react-native-image-picker';
 
 const EditProfile = (props) => {
 
@@ -27,6 +28,22 @@ const EditProfile = (props) => {
         })
     }
 
+    const onUploadClick = () => {
+        ImagePicker.showImagePicker({title : "Select Your Image"},(response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+              } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+              } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+              } else {
+                const source = { uri: response.uri , type : response.type, name : response.fileName};
+                console.log(source)
+                setImage(source)
+              }
+        })
+    }
+
     if(profile === null){
         return (
             <View>
@@ -39,6 +56,8 @@ const EditProfile = (props) => {
                 <HeaderMain type='icon-only' title='Edit Profile' button={true} onPress={()=> props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.content}>
+                    <Profile name='Natalie' onPress={onUploadClick} />
+                    <Gap height={20} />
                     <Input label='FullName' value={profile[0].fullname}/>
                     <Gap height={10} />
                     <Input label='Email' value={profile[0].email} disable/>

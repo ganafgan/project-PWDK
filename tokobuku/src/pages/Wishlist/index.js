@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, ScrollView, Button, Alert, TouchableOpacity } from 'react-native'
-import { HeaderMain } from '../../components';
+import { HeaderMain, NullWishlist } from '../../components';
 import { colors, fonts } from './../../utils';
 import { Gap } from './../../components/atoms'
 import Axios from 'axios';
@@ -121,9 +121,7 @@ const Wishlist = (props) => {
 
     if(data.length === 0){
         return(
-            <View>
-                <Text>Wishlist . . . </Text>
-            </View>
+           <NullWishlist />
         )
     }
 

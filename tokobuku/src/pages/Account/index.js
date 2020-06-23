@@ -5,14 +5,16 @@ import { Profile, HeaderMain, ListMenuProfile, Gap } from '../../components';
 
 
 const Account = ({navigation}) => {
+
+
     return (
         <View style={styles.container}>
             <HeaderMain title='Account' />
             <Gap height={30} />
             <View>
-                <Profile />
+                <Profile name='Natalie' />
                 <Gap height={50} />
-                <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' />
+                <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' onPress={()=>navigation.navigate('EditProfile')} />
                 <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about'  onPress={()=> navigation.navigate('About')} />
                 <ListMenuProfile name='Help' desc='Bantuan Aplikasi' type='next' icon='help'  onPress={()=> navigation.navigate('Help')} />
                 <ListMenuProfile name='Logout' desc='Keluar dari Aplikasi' type='next' icon='logout' />

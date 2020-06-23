@@ -12,6 +12,7 @@ import Profile from './Profile';
 import ListMenuProfile from './ListMenuProfile';
 import ProductDetailContent from './ContentProductDetail'
 import Loading from './Loading'
+import NullWishlist from './NullWishlist'
 
 export {
    Header,
@@ -27,5 +28,6 @@ export {
    Profile,
    ListMenuProfile,
    ProductDetailContent,
-   Loading
+   Loading,
+   NullWishlist
 }
