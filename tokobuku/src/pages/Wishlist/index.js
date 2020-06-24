@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, ScrollView, Button, Alert, TouchableOpacity } from 'react-native'
-import { HeaderMain } from '../../components';
+import { HeaderMain, Loading } from '../../components';
 import { colors, fonts } from './../../utils';
 import { Gap } from './../../components/atoms'
 import Axios from 'axios';
 import { API_URL } from '../../supports/constants/urlApi';
 import NumberFormat from 'react-number-format';
+import { connect} from 'react-redux'
 
 
 const Wishlist = (props) => {
@@ -15,7 +16,7 @@ const Wishlist = (props) => {
     useEffect(()=>{getDataWishlist()},[])
 
     const getDataWishlist = () => {
-        let id_user = 1  // //id user dummy nanti ambil dari redux atau props params route dari home
+        let id_user = props.user.id  // //id user dummy nanti ambil dari redux atau props params route dari home
 
         Axios.get(API_URL+'wishlist/'+id_user)
         .then((res)=>{
@@ -29,7 +30,6 @@ const Wishlist = (props) => {
     }
 
     const addToCart = (id_product, id_user, id) => {
-        //id_user mending ambil dari redux
         Axios.get(API_URL+'cart/'+id_user)
         .then((res)=>{
             if(!res.data.error){
@@ -111,10 +111,10 @@ const Wishlist = (props) => {
         })
     }
 
-    if(data === null){
+    if(data === null || props.user === null){
         return(
             <View>
-                <Text>Loading . . . </Text>
+                <Loading/>
             </View>
         )
     }
@@ -138,7 +138,13 @@ const Wishlist = (props) => {
     )
 }
 
-export default Wishlist;
+const mapStateToProps = (state) => {
+    return{
+        user : state.user.data
+    }
+}
+
+export default connect(mapStateToProps)(Wishlist);
 
 const styles = StyleSheet.create({
     container: {
