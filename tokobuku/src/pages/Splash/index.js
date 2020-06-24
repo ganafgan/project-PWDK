@@ -10,6 +10,7 @@ const Splash = ({navigation}) => {
     //         navigation.replace('GetStarted')
     //     }, 3000)
     // }, [])
+
     return (
         <View style={styles.page}>
             <Image source={ILLogo} style={styles.img} />
