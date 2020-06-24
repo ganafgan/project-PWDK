@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native'
-import { HeaderMain, Input, Gap, Button, Loading } from '../../components'
+import { HeaderMain, Input, Gap, Button, Loading, Profile } from '../../components'
 import { colors } from '../../utils'
 import Axios from 'axios'
 import { API_URL } from '../../supports/constants/urlApi'
+import ImagePicker from 'react-native-image-picker';
 
 const EditProfile = (props) => {
 
@@ -25,6 +26,7 @@ const EditProfile = (props) => {
         const id = props.route.params.id_user
         Axios.get(API_URL + 'user/' + id)
         .then((res)=>{
+            console.log(res)
             setProfile(res.data.data)
             setFullname(res.data.data[0].fullname)
             setPhone_number(res.data.data[0].phone_number)
@@ -39,6 +41,21 @@ const EditProfile = (props) => {
         })
     }
 
+    const onUploadClick = () => {
+        ImagePicker.showImagePicker({title : "Select Your Image"},(response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+              } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+              } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+              } else {
+                const source = { uri: response.uri , type : response.type, name : response.fileName};
+                console.log(source)
+                setImage(source)
+              }
+        })
+    }
 
     const saveUserDetail = () => {
         let data = {
@@ -66,7 +83,6 @@ const EditProfile = (props) => {
         }
     }
 
-
     if(profile === null){
         return (
             <Loading/>
@@ -77,6 +93,8 @@ const EditProfile = (props) => {
                 <HeaderMain type='icon-only' title='Edit Profile' button={true} onPress={()=> props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.content}>
+                    <Profile name={profile[0].username} onPress={onUploadClick} />
+                    <Gap height={20} />
                     <Input label='FullName' value={fullname} onChangeText={(text)=>setFullname(text)} />
                     <Gap height={10} />
                     <Input label='Email' value={profile[0].email} disable/>

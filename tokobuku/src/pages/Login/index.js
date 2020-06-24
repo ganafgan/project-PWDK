@@ -76,9 +76,10 @@ export default connect(null,{saveUserData})(Login)
 
 const styles = StyleSheet.create({
     page: {
+        flex:1,
         padding: 40,
-        flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
+
     },
     logo: {
         height: 80,

@@ -58,16 +58,19 @@ const TransactionDetail = (props) => {
     }
 
     const onPressConfirmPayment = () => {
+        console.log('Masuk')
         if(nomor && nama && image){
             const fd = new FormData()
             let data = {name_bank_account : nama, bank_account : nomor}
             data = JSON.stringify(data)
 
+            console.log(data)
             fd.append('pay_image', image)
             fd.append('data', data)
 
             Axios.post(API_URL + 'uploader/payment/'+ props.route.params.id, fd)
             .then((res)=>{
+                console.log(res)
                 if(!res.data.error){
                     Alert.alert('Bukti Terkirim')
                     props.navigation.replace('Transaction')

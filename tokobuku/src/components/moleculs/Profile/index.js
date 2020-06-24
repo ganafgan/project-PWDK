@@ -1,19 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { ILWomen, ILNullPhoto } from '../../../assets'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
-import { Gap } from '../../atoms'
 
 const Profile = (props) => {
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={props.onPress}>
             <View style={styles.borderProfile}>
                 <TouchableOpacity onPress={props.navigation}>
                     <Image source={props.image} style={styles.img}/>
                 </TouchableOpacity>
             </View>
-            <Text style={styles.name}>{props.username}</Text>
-        </View>
+            <Text style={styles.name}>{props.name}</Text>
+        </TouchableOpacity>
     )
 }
 

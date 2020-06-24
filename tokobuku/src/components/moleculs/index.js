@@ -12,6 +12,7 @@ import Profile from './Profile';
 import ListMenuProfile from './ListMenuProfile';
 import ProductDetailContent from './ContentProductDetail'
 import Loading from './Loading'
+import NullWishlist from './NullWishlist'
 import StatusTransaction from './StatusTransaction'
 import ListTransaction from './ListTransaction'
 import ListTransactionDetail from './ListTransactionDetail'
@@ -31,6 +32,7 @@ export {
    ListMenuProfile,
    ProductDetailContent,
    Loading,
+   NullWishlist,
    StatusTransaction,
    ListTransaction,
    ListTransactionDetail

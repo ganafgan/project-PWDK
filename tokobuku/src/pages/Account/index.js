@@ -54,7 +54,7 @@ const Account = (props) => {
             <ScrollView>
                 <Gap height={30} />
                 <View>
-                    <Profile username={props.user.username} navigation={()=>props.navigation.navigate('UploadPhoto', {name : props.user.username})} image={userDetail.url_profile_image === null ? ILNullPhoto : {uri: API_URL + userDetail.url_profile_image}} />
+                    <Profile name={props.user.username} navigation={()=>props.navigation.navigate('UploadPhoto', {name : props.user.username})} image={userDetail.url_profile_image === null ? ILNullPhoto : {uri: API_URL + userDetail.url_profile_image}} />
                     <Gap height={50} />
                     <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' onPress={()=> props.navigation.navigate('EditProfile', {id_user : props.user.id})} />
                     <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about'  onPress={()=> props.navigation.navigate('About')} />
@@ -62,6 +62,7 @@ const Account = (props) => {
                     <ListMenuProfile name='Logout' desc='Keluar dari Aplikasi' type='next' icon='logout' onPress={logOutPressBtn} />
                 </View>
             </ScrollView>
+
         </View>
     )
 }
