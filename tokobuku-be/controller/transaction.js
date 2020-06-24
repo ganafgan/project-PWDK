@@ -57,8 +57,8 @@ const onCheckOut = (req,res) => {
 
 const getDataTransaction = (req,res) => {
     let user_id = req.params.user_id
-    let sql = `select t.id, t.users_id, t.date, t.total_transaction, t.total_item, t.url_payment_proof, t.url_payment_proof,
-    t.name_bank_account, t.notes, ts.status from transaction t 
+    let sql = `select t.id, t.users_id, t.date, t.total_transaction, t.total_item, t.url_payment_proof,
+    t.name_bank_account, t.bank_account, t.notes, ts.status, ts.id as status_id from transaction t 
     join transaction_status ts on t.transaction_status_id = ts.id where t.users_id = ?;`
 
     db.query(sql, user_id, (err,result) => {
@@ -105,5 +105,5 @@ const getTransactionDetailByIdTransactionId = (req,res) => {
 module.exports = {
     onCheckOut,
     getDataTransaction,
-    getTransactionDetailByIdTransactionId
+    getTransactionDetailByIdTransactionId,
 }

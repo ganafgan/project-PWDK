@@ -1,16 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { ILWomen } from '../../../assets'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
-import { Gap } from '../../atoms'
 
-const Profile = ({name, onPress}) => {
+const Profile = (props) => {
+
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
+        <TouchableOpacity style={styles.container} onPress={props.onPress}>
             <View style={styles.borderProfile}>
-                <Image source={ILWomen} style={styles.img} />
+                <TouchableOpacity onPress={props.navigation}>
+                    <Image source={props.image} style={styles.img}/>
+                </TouchableOpacity>
             </View>
-            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.name}>{props.name}</Text>
         </TouchableOpacity>
     )
 }

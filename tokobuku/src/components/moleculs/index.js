@@ -13,6 +13,9 @@ import ListMenuProfile from './ListMenuProfile';
 import ProductDetailContent from './ContentProductDetail'
 import Loading from './Loading'
 import NullWishlist from './NullWishlist'
+import StatusTransaction from './StatusTransaction'
+import ListTransaction from './ListTransaction'
+import ListTransactionDetail from './ListTransactionDetail'
 
 export {
    Header,
@@ -29,5 +32,8 @@ export {
    ListMenuProfile,
    ProductDetailContent,
    Loading,
-   NullWishlist
+   NullWishlist,
+   StatusTransaction,
+   ListTransaction,
+   ListTransactionDetail
 }

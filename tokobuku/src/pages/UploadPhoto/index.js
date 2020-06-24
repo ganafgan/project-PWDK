@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View, Alert } from 'react-native'
 import { ILNullPhoto, IconAddPhoto } from '../../assets'
-import { Button, Header, Link, Gap } from '../../components'
+import { Button, Header, Link, Gap, HeaderMain } from '../../components'
 import { colors, fonts } from '../../utils'
 
 const UploadPhoto = (props) => { 
@@ -12,20 +12,18 @@ const UploadPhoto = (props) => {
 
     return (
         <View style={styles.page}>
-            <Header title='Upload Photo' />
+            <HeaderMain button={true} type='icon-only' title='Upload Photo' onPress={() => props.navigation.goBack()} style={styles.header} />
             <View style={styles.content}>
                 <View style={styles.profile}>
                     <View style={styles.avatarWrapper}>
                         <Image source={ILNullPhoto} style={styles.avatar} />
                         <IconAddPhoto style={styles.addPhoto}/>
                     </View>
-                    <Text style={styles.name}>Ichijo Raku</Text>
-                    <Text style={styles.profession}>Product Designer</Text>
+                    <Text style={styles.name}>{props.route.params.name}</Text>
                 </View>
                 <View>
                     <Button title='Upload and Continue' onPress={onUploadBtn} />
                     <Gap height={30} />
-                    <Link title='Skip for this' onPress={()=>props.navigation.navigate('MainApp')} align='center' size={16} />
                 </View>
             </View>
         </View>

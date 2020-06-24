@@ -1,6 +1,4 @@
-const INITIAL_STATE = {
-    user : null
-}
+const INITIAL_STATE = null
     
 
 const userReducer = (state=INITIAL_STATE, action) => {

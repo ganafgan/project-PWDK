@@ -220,44 +220,50 @@ const login = (req,res) => {
 
 const forgetPassword = (req,res) => {
 
-    // const data = req.body                                            INPUT EMAIL ATAU USERNAME DULU
+    const data = req.body                                            //INPUT EMAIL ATAU USERNAME DULU
 
-    // const sqlEmailCheck = 'select * from users where email = ?'
-    // db.query(sqlEmailCheck, data.email, (err,result)=>{
-    //     try{
-    //         if(err) throw err
-    //         if(result.length === 0 ) throw {error : true, message : 'email not available'}
+    const sqlEmailCheck = 'select * from users where email = ?'
+    db.query(sqlEmailCheck, data.email, (err,result)=>{
+        try{
+            if(err) throw err
+            if(result.length === 0 ) throw {error : true, message : 'email not available'}
+            let dataUser = result
 
-    //         console.log(result)
-    //         const token = createJwt({email : result[0].email, id : result[0].id})
-    //         transporter.sendMail({
-    //             from : 'Warehouse',
-    //             to : data.email,
-    //             subject : 'RESET YOUR PASSWORD',
-    //             html : `
-    //             <h1>Click Link <a href= 'http://localhost:3000/reset-password/${token}'> Here </a> to reset your password
-    //             `
-    //         }).then((response)=>{
-    //             res.json({
-    //                 error : false,
-    //                 message : 'Check Your Email to Reset Your Password'
-    //             })
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err)
-    //         })
-
-            
-
-    //     }catch(err){
-    //         res.json({
-    //             error : true,
-    //             message : err.message
-    //         })
-    //     }
-    // })
-
-
+            let sql = 'update users set otp = ? where id = ? and email = ?'
+            db.query(sql, [data.otp, result[0].id, data.email], (err,result)=>{
+            try{
+                if(err) throw err
+                transporter.sendMail({
+                    from : 'TokoBuku',
+                    to : data.email,
+                    subject : '<TokoBuku> Reset Password <TokoBuku>',
+                    html : `
+                    <h2>This is your code, to reset your password : ${data.otp} <h2>
+                    `
+                }).then((response)=>{
+                    res.json({
+                        error : false,
+                        message : 'Check Your Email to Reset Your Password',
+                        data : dataUser
+                    })
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+            }catch(err){
+                res.json({
+                    error : true,
+                    message : err.message
+                })
+            }
+        })
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
 }
 
 
@@ -265,27 +271,27 @@ const forgetPassword = (req,res) => {
 const resetPassword = (req,res) => {
     // const token = req.params.token
     // const dataToken = decodedToken(token)
-    // const data = req.body
-    // const afterHashing = passwordHasher(data.password)
-    // data.password = afterHashing
+    const data = req.body
+    const afterHashing = passwordHasher(data.password)
+    data.password = afterHashing
 
     // console.log(dataToken)
-    // const sql = 'update users set ? where id = ? and email = ?'
-    // db.query(sql, [data, dataToken.id, dataToken.email], (err,result)=>{
-    //     try{
-    //         if(err) throw err
-    //         res.json({
-    //             error : false,
-    //             message : 'Reset Password Success'
-    //         })
+    const sql = 'update users set ? where id = ? and email = ?'
+    db.query(sql, [{password:data.password}, data.id, data.email], (err,result)=>{
+        try{
+            if(err) throw err
+            res.json({
+                error : false,
+                message : 'Reset Password Success'
+            })
 
-    //     }catch(err){
-    //         res.json({
-    //             error : true,
-    //             message : err.message
-    //         })
-    //     }
-    // })
+        }catch(err){
+            res.json({
+                error : true,
+                message : err.message
+            })
+        }
+    })
 }
 
 
@@ -298,5 +304,5 @@ module.exports = {
     forgetPassword,
     resetPassword,
     resetPassword,
-    resendOtp
+    resendOtp,    
 }

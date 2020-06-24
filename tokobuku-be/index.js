@@ -19,6 +19,7 @@ app.use('/wishlist', require('./router/wishlist'))
 app.use('/cart', require('./router/cart'))
 app.use('/transaction', require('./router/transaction'))
 app.use('/uploader', require('./router/uploader'))
+app.use('/status', require('./router/statusTrans'))
 
 
 app.get('/', (req, res)=>{

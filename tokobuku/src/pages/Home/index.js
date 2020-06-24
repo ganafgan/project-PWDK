@@ -13,7 +13,7 @@ const Home = (props) => {
     const [dataBook, setDataBook] = useState(null)
     const [search, setSearch] = useState('')
     
-    useEffect(()=>{getCategory(),getDataBook(),getPublishers(), console.log(props.user)},[])
+    useEffect(()=>{getCategory(),getDataBook(),getPublishers()},[])
 
     const getCategory = () => {
         Axios.get(API_URL + 'category')
@@ -110,7 +110,7 @@ const Home = (props) => {
         })
     }
 
-    if(category === null || publishers === null || dataBook === null){
+    if(category === null || publishers === null || dataBook === null || props.user === null){
         return(
             <View style={styles.page}>
                 {/* BELUM BIKIN PAGE LOADING */}
@@ -145,7 +145,7 @@ const Home = (props) => {
 
             <View style={styles.content}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <Text style={styles.welcome}>Hallo {props.user.data.username}, Temukan Buku Favoritmu di BookStore</Text>
+                    <Text style={styles.welcome}>Temukan Buku Favoritmu di BookStore</Text>
                     <View style={styles.wrapperScroll}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             <View style={styles.category}>
@@ -221,7 +221,7 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => {
     return{
-        user : state.user
+        user : state.user.data
     }
 }
 

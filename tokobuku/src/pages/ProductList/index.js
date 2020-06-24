@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import { colors } from '../../utils';
-import { HeaderMain, ListBook, Gap } from '../../components';
+import { HeaderMain, ListBook, Gap, Loading } from '../../components';
 import Axios from 'axios';
 import { API_URL } from '../../supports/constants/urlApi';
 
@@ -67,9 +67,7 @@ const ProductList = (props) => {
             <HeaderMain button={true} style={styles.header} type='icon-only' title={props.route.params.header} onPress={() => props.navigation.goBack()} />
             {
                 data === null ? 
-                <View>
-                    <Text>Loading .... (BIKIN PAGE LOADING) </Text>
-                </View>
+                <Loading/>
                 :
 
                 data.length === 0 ?

@@ -7,6 +7,8 @@ import Axios from 'axios'
 import { API_URL } from '../../../supports/constants/urlApi'
 import NumberFormat from 'react-number-format';
 import NullCarts from '../NullCarts'
+import { connect } from 'react-redux'
+import Loading from '../Loading'
 
 const ContentCarts = (props) => {
    
@@ -18,7 +20,7 @@ const ContentCarts = (props) => {
     useEffect(()=>{getDataCart()},[data]) 
     
     const getDataCart = () => {
-        let user_id = 1  //nanti get data user dari redux
+        let user_id = props.user.id  //nanti get data user dari redux
 
         Axios.get(API_URL+'cart/'+user_id)
         .then((res)=>{
@@ -100,7 +102,7 @@ const ContentCarts = (props) => {
             total_transaction : totalPrice,
             total_item : data.length,
             transaction_status_id : 1,
-            users_id : 1      // masi dummy nanti ambil dari redux
+            users_id : props.user.id      // masi dummy nanti ambil dari redux
         }
         let dataTransactionDetail = data.map((val)=>{
             return{
@@ -159,11 +161,9 @@ const ContentCarts = (props) => {
         })
     }
 
-    if(data === null){
+    if(data === null || props.user === null){
         return(
-            <View>
-                <Text>Loading...</Text>
-            </View>
+            <Loading/>
         )
     }
 
@@ -212,7 +212,13 @@ const ContentCarts = (props) => {
     )
 }
 
-export default ContentCarts
+const mapStateToProps = (state) => {
+    return{
+        user : state.user.data
+    }
+}
+
+export default connect(mapStateToProps)(ContentCarts)
 
 const styles = StyleSheet.create({
     container: {
