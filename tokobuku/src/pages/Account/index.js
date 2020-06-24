@@ -37,7 +37,7 @@ const Account = (props) => {
             <View>
                 <Profile name='Natalie' />
                 <Gap height={50} />
-                <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' />
+                <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' onPress={()=>props.navigation.navigate('EditProfile')} />
                 <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about'  onPress={()=> props.navigation.navigate('About')} />
                 <ListMenuProfile name='Help' desc='Bantuan Aplikasi' type='next' icon='help'  onPress={()=> props.navigation.navigate('Help')} />
                 <ListMenuProfile name='Logout' desc='Keluar dari Aplikasi' type='next' icon='logout' onPress={logOutPressBtn} />

@@ -18,6 +18,7 @@ const Home = (props) => {
     const getCategory = () => {
         Axios.get(API_URL + 'category')
         .then((res)=>{
+            console.log(res)
             setCategory(res.data.data)
         })
         .catch((err)=>{
