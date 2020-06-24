@@ -73,18 +73,18 @@ const Register = (props) => {
 
 
     return (
-        <KeyboardAvoidingView style={{flex:1}}>
+        <KeyboardAvoidingView style={{flex:1,backgroundColor:'white'}}>
             <ScrollView>
                 <View style={styles.page}>
-                    <Header onPress={()=> navigation.goBack()} title='Daftar Akun'/>
+                    <Header onPress={()=> props.navigation.goBack()} title='Daftar Akun'/>
                     <View style={styles.content}>
                         <Input label='Username' onChangeText={(value) => setUsername(value)} value={username} />
                         <Gap height={24} />
                         <Input label='Email' onChangeText={(value) => setEmail(value)} value={email} />
                         <Gap height={24} />
-                        <Input label='Password' onChangeText={(value) => setPassword(value)} value={password} />
+                        <Input label='Password' secureTextEntry={true} onChangeText={(value) => setPassword(value)} value={password} />
                         <Gap height={24} />
-                        <Input label='Confirm Password' onChangeText={(value) => setConfirm(value)} value={confirm} />
+                        <Input label='Confirm Password' secureTextEntry={true} onChangeText={(value) => setConfirm(value)} value={confirm} />
                         <Gap height={40} />
                         <Button title='Continue' onPress={onRegisterPressBtn}/>
                     </View>

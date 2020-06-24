@@ -15,8 +15,8 @@ const postPaymentConfirmation = (req,res) => {
         const dataToUpdate = {
             transaction_status_id : 2,
             url_payment_proof : req.file.path,
-            name_bank_account : data.nama,
-            bank_account : data.no_rek,
+            name_bank_account : data.name_bank_account,
+            bank_account : data.bank_account
         }
 
         const sql = 'update transaction set ? where id = ?'

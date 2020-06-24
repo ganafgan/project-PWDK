@@ -16,6 +16,8 @@ import Transaction from './Transaction'
 import TransactionDetail from './TransactionDetail'
 import EditProfile from './EditProfile'
 import Otp from './Otp'
+import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 
 export {
     GetStarted,
@@ -35,5 +37,8 @@ export {
     Transaction,
     TransactionDetail,
     EditProfile,
-    Otp
+    Otp,
+    ForgotPassword,
+    ResetPassword
+
 }

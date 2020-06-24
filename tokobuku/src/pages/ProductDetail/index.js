@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Button } from 'react-native'
 import { colors, fonts } from '../../utils';
-import { HeaderMain, ProductDetailContent } from '../../components';
+import { HeaderMain, ProductDetailContent, Loading } from '../../components';
 import Axios from 'axios';
 import { API_URL } from '../../supports/constants/urlApi';
 import NumberFormat from 'react-number-format'
 import { Gap } from './../../components/atoms'
 import ListBook from './../../components/moleculs/ListBook/index'
 import { IconMinusButton, IconPlusButton } from './../../assets'
+import { connect} from 'react-redux'
 
 const ProductDetail = (props) => {
     
@@ -84,13 +85,13 @@ const ProductDetail = (props) => {
 
     const addToCartBtn = () => {
         let addToCart = {
-            id_user : 1,      //id user dummy nanti ambil dari redux
+            id_user : props.user.id,      //id user dummy nanti ambil dari redux
             id_product : data[0].id,
             qty : qty
         }
 
         let getSpecificCart = {
-            id_user : 1, //id user dummy nanti ambil dari redux
+            id_user : props.user.id, //id user dummy nanti ambil dari redux
             id_product : data[0].id
         }
 
@@ -135,7 +136,7 @@ const ProductDetail = (props) => {
 
 
     const addToWishlistBtn = () => {
-        let id_user = 1  //id user dummy nanti ambil dari redux
+        let id_user = props.user.id  //id user dummy nanti ambil dari redux
         let id_product = data[0].id
         
         Axios.get(API_URL+'wishlist/'+id_user)
@@ -170,8 +171,8 @@ const ProductDetail = (props) => {
         <View style={styles.container}>
             <HeaderMain button={true} style={styles.header} type='icon-only' title={props.route.params.title} onPress={() => props.navigation.navigate('MainApp')} />
             {
-            data === null || dataTerkait === null ?
-            <Text>Loading ...</Text>
+            data === null || dataTerkait === null || props.user === null ?
+            <Loading/>
             :
             <View style={{flex:1}}>
                 <ScrollView>
@@ -236,7 +237,13 @@ const ProductDetail = (props) => {
     )
 }
 
-export default ProductDetail;
+const mapStateToProps = (state) => {
+    return{
+        user : state.user.data
+    }
+}
+
+export default connect(mapStateToProps)(ProductDetail);
 
 const styles = StyleSheet.create({
     container: {

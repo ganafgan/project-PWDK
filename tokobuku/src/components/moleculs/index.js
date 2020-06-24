@@ -12,6 +12,9 @@ import Profile from './Profile';
 import ListMenuProfile from './ListMenuProfile';
 import ProductDetailContent from './ContentProductDetail'
 import Loading from './Loading'
+import StatusTransaction from './StatusTransaction'
+import ListTransaction from './ListTransaction'
+import ListTransactionDetail from './ListTransactionDetail'
 
 export {
    Header,
@@ -27,5 +30,8 @@ export {
    Profile,
    ListMenuProfile,
    ProductDetailContent,
-   Loading
+   Loading,
+   StatusTransaction,
+   ListTransaction,
+   ListTransactionDetail
 }

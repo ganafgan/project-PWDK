@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction, EditProfile, Otp } from '../pages'
+import { Splash, GetStarted, Login, Register, UploadPhoto, Home, Cart, Dashboard, Account, ProductList, ProductDetail, Wishlist, About, Help, TransactionDetail, Transaction, EditProfile, Otp, ForgotPassword, ResetPassword } from '../pages'
 import { BottomNavigator } from '../components';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -50,10 +50,12 @@ const InitialRouter = (initialRouteName) => {
             <Stack.Screen name='About' component={About} options={{headerShown: false}} />
             <Stack.Screen name='Help' component={Help} options={{headerShown: false}} />
             <Stack.Screen name='MyTab' component={MyTab} options={{headerShown: false}} />
-            <Stack.Screen name='TransactionDetail' component={Transaction} options={{headerShown: false}} />
-            <Stack.Screen name='Transaction' component={TransactionDetail} options={{headerShown: false}} />
+            <Stack.Screen name='TransactionDetail' component={TransactionDetail} options={{headerShown: false}} />
+            <Stack.Screen name='Transaction' component={Transaction} options={{headerShown: false}} />
             <Stack.Screen name='EditProfile' component={EditProfile} options={{headerShown: false}} />
             <Stack.Screen name='Otp' component={Otp} options={{headerShown: false}} />
+            <Stack.Screen name='ForgotPassword' component={ForgotPassword} options={{headerShown: false}} />
+            <Stack.Screen name='ResetPassword' component={ResetPassword} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }
@@ -62,17 +64,16 @@ const InitialRouter = (initialRouteName) => {
 const Router = (props) => {
 
     const [splash, setSplash] = useState(false)
-    const [user,setUser] = useState(false)
+
 
     useEffect(()=>{
         setSplash(true)
         AsyncStorage.getItem('data_user', (err,result) => {
             if(err) console.log(err)
-            console.log(result)
             if(result){
                 var data = JSON.parse(result)
                 props.saveUserData(data)
-                setUser(true)
+                console.log(props.user)
                 setSplash(false)
             }else{
                 setSplash(false)
@@ -83,7 +84,7 @@ const Router = (props) => {
 
 
     if(splash) return <Splash/>
-    if(user){
+    if(props.user){
         return InitialRouter('MainApp')
     }else{
         return InitialRouter('GetStarted')}

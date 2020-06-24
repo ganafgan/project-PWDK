@@ -6,7 +6,7 @@ const getUserDetailById = (req,res) => {
     let sql = `select u.id, u.username, u.email, u.role, u.isVerified, 
     ud.fullname, ud.phone_number, ud.address, ud.kelurahan, 
     ud.kecamatan, ud.kota, ud.provinsi, ud.url_profile_image from users u
-    join user_detail ud on u.id = ud.users_id where u.id = ?;`
+    left join user_detail ud on u.id = ud.users_id where u.id = ?;`
 
     db.query(sql, id, (err, result) => {
         try{
