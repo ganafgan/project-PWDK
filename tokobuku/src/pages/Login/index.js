@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { saveUserData } from './../../redux/actions/userAction'
 
 
-const Login = (props,{navigation}) => {
+const Login = (props) => {
     
     const [email, setEmail]= useState(null)
     const [password, setPassword]= useState(null)
@@ -50,7 +50,7 @@ const Login = (props,{navigation}) => {
 
 
     return (
-        <KeyboardAvoidingView style={{flex:1}}>
+        <KeyboardAvoidingView style={{flex:1, backgroundColor:'white'}}>
             <ScrollView>
                 <View style={styles.page}>
                     <View>
@@ -59,26 +59,20 @@ const Login = (props,{navigation}) => {
                     <Text style={styles.title}>Login Book Store</Text>
                     <Input label='Email' onChangeText={(text)=>setEmail(text)} value={email} />
                     <Gap height={25} />
-                    <Input label='Password' onChangeText={(text)=>setPassword(text)} value={password} />
+                    <Input label='Password' secureTextEntry={true} onChangeText={(text)=>setPassword(text)} value={password} />
                     <Gap height={10} />
-                    <Link title='Forget Password' size={12} />
+                    <Link title='Forget Password' size={12} onPress={()=>props.navigation.navigate('ForgotPassword')} />
                     <Gap height={50} />
                     <Button title='Sign In' onPress={onLoginBtn} />
                     <Gap height={30} />
-                    <Link title='Create New Account' onPress={()=>navigation.navigate('Register')} size={16} align='center'/>
+                    <Link title='Create New Account' onPress={()=>props.navigation.navigate('Register')} size={16} align='center'/>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
     )
 }
 
-const mapStateToProps = (state) => {
-    return{
-        user : state.user
-    }
-}
-
-export default connect(mapStateToProps,{saveUserData})(Login)
+export default connect(null,{saveUserData})(Login)
 
 const styles = StyleSheet.create({
     page: {
