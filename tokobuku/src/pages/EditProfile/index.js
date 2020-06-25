@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native'
 import { HeaderMain, Input, Gap, Button, Loading, Profile } from '../../components'
-import { colors } from '../../utils'
+import { colors, fonts } from '../../utils'
 import Axios from 'axios'
 import { API_URL } from '../../supports/constants/urlApi'
+import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-picker';
 
 const EditProfile = (props) => {
@@ -38,22 +39,6 @@ const EditProfile = (props) => {
         })
         .catch((err)=>{
             console.log(err)
-        })
-    }
-
-    const onUploadClick = () => {
-        ImagePicker.showImagePicker({title : "Select Your Image"},(response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-              } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-              } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-              } else {
-                const source = { uri: response.uri , type : response.type, name : response.fileName};
-                console.log(source)
-                setImage(source)
-              }
         })
     }
 
@@ -93,7 +78,9 @@ const EditProfile = (props) => {
                 <HeaderMain type='icon-only' title='Edit Profile' button={true} onPress={()=> props.navigation.goBack()} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.content}>
-                    <Profile name={profile[0].username} onPress={onUploadClick} />
+                    <View style={styles.contentText}>
+                        <Text style={styles.text}>Profile {props.user.username}</Text>
+                    </View>
                     <Gap height={20} />
                     <Input label='FullName' value={fullname} onChangeText={(text)=>setFullname(text)} />
                     <Gap height={10} />
@@ -118,7 +105,13 @@ const EditProfile = (props) => {
     )
 }
 
-export default EditProfile
+const mapStateToProps = (state) => {
+    return{
+        user : state.user.data
+    }
+}
+
+export default connect(mapStateToProps)(EditProfile)
 
 const styles = StyleSheet.create({
     container: {
@@ -127,5 +120,14 @@ const styles = StyleSheet.create({
     },
     content: {
         padding: 40
+    },
+    text: {
+        fontSize: 20,
+        fontFamily: fonts.primary[600],
+        color: colors.text.primary,
+    },
+    contentText: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

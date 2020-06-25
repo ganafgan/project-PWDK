@@ -32,7 +32,6 @@ class Payment extends React.Component{
         })
     }
 
-
     onApproveBtnClick = () => {
         let transaction_id = Number(window.location.pathname.split('/')[2])
         let data = {
@@ -68,7 +67,6 @@ class Payment extends React.Component{
             }
           })
     }
-
 
     onRejectBtnClick = () => {
         let transaction_id = Number(window.location.pathname.split('/')[2])
@@ -108,15 +106,12 @@ class Payment extends React.Component{
           })
     }
 
-
-
     render(){
         if(this.state.data === null){
             return <Loading/>
         }
 
         if(this.state.isComplete) return <Redirect to ='/transaction'/>
-
         return(
             <div className="container-fluid p-5">
                 <h1 style={{textAlign:'center'}}>Payment Detail</h1>
@@ -132,7 +127,6 @@ class Payment extends React.Component{
                                     <th scope='col'>Qty</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 {
                                     this.state.data.map((val, index)=>{
@@ -152,7 +146,6 @@ class Payment extends React.Component{
                                 }
                             </tbody>
                         </Table>
-
                         <h5 className='mt-3' style={{marginTop:50}}>Note : </h5>
                         <textarea value={this.state.notes} onChange={(e)=>this.setState({notes : e.target.value})} className='input-register form-control mt-2' ref='deskripsi' style={{height:'150px', marginBottom:20}} 
                         type='text' placeholder={this.state.data[0].transaction_status_id === 7 ? this.state.data[0].notes : 'notes'} />
@@ -173,12 +166,12 @@ class Payment extends React.Component{
                                     </span>
                                 </div>
                             }
+
                     </div>
-
-
                     <div className='col-md' style={{height:'50vh', textAlign:'center', marginLeft: 30}}>
                         <div className="card">
                             <div className="card-header">
+
                                 Grand Total : {this.state.data[0].total_transaction}
                             </div>
                             <ul className="list-group list-group-flush">
@@ -191,8 +184,6 @@ class Payment extends React.Component{
                         </div>
                     </div>
                 </div>
-
-
             </div>
         )
     }

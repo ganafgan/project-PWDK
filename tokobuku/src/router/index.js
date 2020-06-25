@@ -33,9 +33,9 @@ const MyTab = () => {
     )
 }
 
-const InitialRouter = () => {
+const InitialRouter = (initial) => {
     return(
-        <Stack.Navigator initialRouteName='GetStarted' >
+        <Stack.Navigator initialRouteName={initial}>
             <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}} />
             <Stack.Screen name='GetStarted' component={GetStarted} options={{headerShown: false}} />
             <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
@@ -84,7 +84,7 @@ const Router = (props) => {
 
 
     if(splash) return <Splash/>
-    if(props.user){
+    if(props.user !== null){
         return InitialRouter('MainApp')
     }else{
         return InitialRouter('GetStarted')}

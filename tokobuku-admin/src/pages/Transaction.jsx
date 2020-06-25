@@ -121,8 +121,6 @@ export default class Transaction extends Component {
         })
     }
 
-
-    
     render() {
         if(this.state.status === null || this.state.data === null) return <Loading/>
         return (
@@ -132,6 +130,7 @@ export default class Transaction extends Component {
                     <div className="container">
                         <div className="row" style={{padding:30}}>
                             <div className='col-md'>
+
                                 <select name='kagegori' id='kategori' style={{marginRight:30}} onChange={(event)=>(this.setState({status_id : event.target.value}, this.getDataTrans()))} >
                                     <option value='0'>Semua Transaksi</option>
                                     {
@@ -143,8 +142,6 @@ export default class Transaction extends Component {
                             </div>
                         </div>
                     </div>
-
-
                 <div className="container">
                     <div className="row justify-content-center" style={{textAlign:'center'}}>
                         <Table>
@@ -158,7 +155,6 @@ export default class Transaction extends Component {
                                     <th scope='col'>Payment Proof</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                             {this.renderData()}                           
                             </tbody>

@@ -85,6 +85,7 @@ export default class DashBoard extends Component {
                 <Loading/>
             )
         }
+
         return (
             <div className='container-fluid'>
                 <h2 style={{textAlign:'center', margin : 30}}>Dashboard</h2>
@@ -92,13 +93,16 @@ export default class DashBoard extends Component {
                     <div className="row" style={{margin:30}}>
                         {/* ============================ */}
                         <div className="col-sm">
+
                             <div className='card' style={{width: 'auto', height:'30vh', backgroundColor:'#f8f9fa'}}>
+
                                 <div className="column">
                                     <h2 style={{textAlign:'center', margin : 20}}>Ringkasan Transaksi</h2>
                                     <div className="container-fluid">
                                         <div className="row justify-content-around" style={{textAlign:'center'}} >
                                             <div className="column">
                                                 <h4>Pesanan Baru</h4>
+
                                                 <div style={{fontSize:30}}>{this.state.newOrder}</div>
                                             </div>
                                             <div className="column">
@@ -109,6 +113,7 @@ export default class DashBoard extends Component {
                                         <div className="row justify-content-center" style={{textAlign:'center', marginTop: 20}} >
                                             <div className="column">
                                                 <a href='/transaction'>see detail</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -134,6 +139,7 @@ export default class DashBoard extends Component {
                                         <div className="row justify-content-center" style={{textAlign:'center', marginTop: 20}} >
                                             <div className="column">
                                                 <a href='/product'>see detail</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -147,6 +153,7 @@ export default class DashBoard extends Component {
                         <h2 style={{textAlign:'center', margin:20}}>Top 10 Produk</h2>
                         <div className="container">
                             <ul className="list-group" style={{textAlign:'center'}}>
+
                                 {
 
                                     this.state.topTen.map((val)=>{
@@ -155,11 +162,8 @@ export default class DashBoard extends Component {
 
                                 }
                             </ul>
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )
