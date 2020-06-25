@@ -20,26 +20,6 @@ class App extends React.Component{
 					<Login/>
 				</Route>
 
-				<Route path='/dashboard'>
-					<DashBoard/>
-				</Route>
-
-				<Route path='/product'>
-					<AllProduct/>
-				</Route>
-
-				<Route path='/post'>
-					<PostProduct/>
-				</Route>
-
-				<Route path='/transaction'>
-					<Transaction/>
-				</Route>
-
-				<Route path='/payment'>
-					<Payment/>
-				</Route>
-
 				<Route path='/register'>
 					<Register/>
 				</Route>
