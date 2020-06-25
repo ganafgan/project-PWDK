@@ -1,18 +1,22 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
-
 import Login from './pages/Login';
 import Register from './pages/Register'
-import VerificationSuccess from './pages/VerificationSuccess';
-import ProductList from './pages/ProductList';
+import TokoBukuNavbar from './components/Navbar';
+import DashBoard from './pages/Dashboard';
+import AllProduct from './pages/AllProduct';
+import PostProduct from './pages/InputProduct';
+import Transaction from './pages/Transaction';
+import Payment from './pages/TransactionDetail';
+
+
 
 class App extends React.Component{
 	render(){
 		return(
-			<BrowserRouter>
 			
-				<Route  exact path='/'>
+			<div>
+				<Route exact path='/'>
 					<Login/>
 				</Route>
 
@@ -20,14 +24,32 @@ class App extends React.Component{
 					<Register/>
 				</Route>
 
-				<Route path='/verification-success'>
-					<VerificationSuccess/>
+				<Route path='/dashboard'>
+					<TokoBukuNavbar/>
+					<DashBoard/>
 				</Route>
 
-				<Route path='/product-list'>
-					<ProductList/>
+				<Route path='/product'>
+					<TokoBukuNavbar/>
+					<AllProduct/>
 				</Route>
-			</BrowserRouter>
+
+				<Route path='/post'>
+					<TokoBukuNavbar/>
+					<PostProduct/>
+				</Route>
+
+				<Route path='/transaction'>
+					<TokoBukuNavbar/>
+					<Transaction/>
+				</Route>
+
+				<Route path='/payment'>
+					<TokoBukuNavbar/>
+					<Payment/>
+				</Route>
+				
+			</div>
 	)
 	}
 }

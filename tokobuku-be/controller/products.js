@@ -57,11 +57,10 @@ const getProductById = (req,res) => {
 const postNewProduct = (req,res) => {
     const upload = uploader('/products', 'PRD-IMG').single('product_image')
 
-    upload(req, res, (err) => {
+    upload (req, res, (err) => {
         if(err) throw err
         let data = req.body.data
         data = JSON.parse(data)
-
         let sql_1 = 'insert into products set ?'
         db.query(sql_1, data, (err,result)=>{
             try{
