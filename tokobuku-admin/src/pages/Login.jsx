@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
 export default class Login extends Component {
@@ -11,13 +10,13 @@ export default class Login extends Component {
     onLoginBtn = () => {
         this.setState({loading : true})
 
-        const email = this.refs.email.value
+        const username = this.refs.username.value
         const password = this.refs.password.value
         const data = {
-            email,
+            username,
             password
         }
-        if(email && password){
+        if(username && password){
             Axios.post(`http://localhost:4000/auth/login`, data)
             .then((res)=>{
                 console.log(res.data)
@@ -32,7 +31,7 @@ export default class Login extends Component {
             alert(`All form must be filled`)
         }
         this.setState({loading : false})
-        this.refs.email.value = ''
+        this.refs.username.value = ''
         this.refs.password.value = ''
     }
 
@@ -59,7 +58,7 @@ export default class Login extends Component {
                                 <div className="col-md-6">
                                     <div className="card-body">
                                         <h5 className="card-title ml-5 mb-5">Admin Login</h5>
-                                        <input ref='email' type="text" className='form-control mb-3' placeholder='Input email'/>
+                                        <input ref='username' type="text" className='form-control mb-3' placeholder='Input username'/>
                                         <input ref='password' type="text" className='form-control mb-5'placeholder='Input password'/>
                                         {
                                             this.state.loading === false ?
