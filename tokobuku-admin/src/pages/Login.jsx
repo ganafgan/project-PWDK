@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
+import { urlApi } from '../supports/constants/urlApi'
+import Swal from 'sweetalert2'
 
 export default class Login extends Component {
 
@@ -7,28 +9,41 @@ export default class Login extends Component {
         loading : false
     }
 
+
     onLoginBtn = () => {
         this.setState({loading : true})
 
-        const username = this.refs.username.value
-        const password = this.refs.password.value
         const data = {
-            username,
-            password
+            username : this.refs.username.value,
+            email : this.refs.email.value,
+            password : this.refs.password.value
         }
-        if(username && password){
-            Axios.post(`http://localhost:4000/auth/login`, data)
+        if(data.username && data.password && data.email){
+            Axios.post(urlApi+'auth/login', data)
             .then((res)=>{
-                console.log(res.data)
-                localStorage.setItem('token', res.data.token)
-                alert(res.data.message)
-                window.location = `/product-list`
+                if(!res.data.error){
+                    console.log(res.data.data)
+                    localStorage.setItem('token', res.data.token)
+                    Swal.fire(res.data.message)
+                    window.location = '/dashboard'
+
+                }
             })
             .catch((err)=>{
-                alert(err.message)
+                console.log(err)
             })
+            // Axios.post(`http://localhost:4000/auth/login`, data)
+            // .then((res)=>{
+            //     console.log(res.data)
+            //     localStorage.setItem('token', res.data.token)
+            //     alert(res.data.message)
+            //     window.location = `/product-list`
+            // })
+            // .catch((err)=>{
+            //     alert(err.message)
+            // })
         }else{
-            alert(`All form must be filled`)
+            Swal.fire(`All form must be filled`)
         }
         this.setState({loading : false})
         this.refs.username.value = ''
@@ -59,7 +74,8 @@ export default class Login extends Component {
                                     <div className="card-body">
                                         <h5 className="card-title ml-5 mb-5">Admin Login</h5>
                                         <input ref='username' type="text" className='form-control mb-3' placeholder='Input username'/>
-                                        <input ref='password' type="text" className='form-control mb-5'placeholder='Input password'/>
+                                        <input ref='email' type="text" className='form-control mb-3' placeholder='Input email'/>
+                                        <input ref='password' type="password" className='form-control mb-5'placeholder='Input password'/>
                                         {
                                             this.state.loading === false ?
                                             <input onClick={this.onLoginBtn} type="button" className='btn btn-primary' value='Login' style={{width:'100%'}}/>

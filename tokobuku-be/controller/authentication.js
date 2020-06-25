@@ -186,10 +186,10 @@ const resendOtp = (req,res) => {
 
 const login = (req,res) => {
     const data = req.body
-
+    console.log(data)
     const afterHashing = passwordHasher(data.password)
     data.password = afterHashing
-
+    console.log('masuk')
     let sql = 'select * from users where email = ? and password = ?'
     db.query(sql, [data.email, data.password], (err, result)=>{
         try{
@@ -203,7 +203,7 @@ const login = (req,res) => {
             res.json({
                 error : false,
                 message : 'Login Success',
-                data : {id : dataUser.id, username : dataUser.username, email : dataUser.email},
+                data : {id : dataUser.id, username : dataUser.username, email : dataUser.email, role : dataUser.role},
                 token : token
             })
 

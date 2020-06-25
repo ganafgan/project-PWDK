@@ -39,7 +39,14 @@ export default class DashBoard extends Component {
     }
 
     getAllProducts = () => {
-        Axios.get(urlApi+'products')
+        let token = localStorage.getItem('token')
+        if(token){
+            let config = {
+                headers : {
+                    Authorization : "Bearer " + token
+                }
+            }
+        Axios.get(urlApi+'products', config)
         .then((res)=>{
             if(!res.data.error){
                 let productsSell = res.data.data.filter((val)=>{
@@ -55,6 +62,7 @@ export default class DashBoard extends Component {
         .catch((err)=>{
             console.log(err)
         })
+        }
     }
 
     topTenProducts = () => {

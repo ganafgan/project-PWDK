@@ -32,6 +32,7 @@ const Login = (props) => {
         if(email && password){
             Axios.post(API_URL+'auth/login', {email : email, password : password})
             .then((res)=>{
+                console.log(res)
                 if(res.data !== undefined || res.data !== null){
                     storeData(res.data)
                     props.saveUserData(res.data)
