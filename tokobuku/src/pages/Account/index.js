@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Alert, View, ScrollView } from 'react-native'
-import { colors } from '../../utils';
+import { StyleSheet, Alert, View, ScrollView, Text } from 'react-native'
+import { colors, fonts } from '../../utils';
 import { Profile, HeaderMain, ListMenuProfile, Gap, Loading } from '../../components';
 import { connect } from 'react-redux'
 import { clearUserData } from './../../redux/actions/userAction'
@@ -52,9 +52,13 @@ const Account = (props) => {
         <View style={styles.container}>
             <HeaderMain title='Account'/>
             <ScrollView>
-                <Gap height={30} />
+                <Gap height={50} />
                 <View>
-                    <Profile name={props.user.username} navigation={()=>props.navigation.navigate('UploadPhoto', {name : props.user.username})} image={userDetail.url_profile_image === null ? ILNullPhoto : {uri: API_URL + userDetail.url_profile_image}} />
+                    <View style={styles.content}>
+                        <Text style={styles.title}>Hallo.....!!!</Text>
+                        <Gap height={20} />
+                        <Text style={styles.name}>{props.user.username}</Text>
+                    </View>
                     <Gap height={50} />
                     <ListMenuProfile name='Edit' desc='Edit Profile' type='next' icon='edit' onPress={()=> props.navigation.navigate('EditProfile', {id_user : props.user.id})} />
                     <ListMenuProfile name='About' desc='Tentang Aplikasi' type='next' icon='about'  onPress={()=> props.navigation.navigate('About')} />
@@ -79,5 +83,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white
+    },
+    title: {
+        fontSize: 25,
+        fontFamily: fonts.primary[600],
+        color: colors.text.primary,
+        alignItems: 'center'
+    },
+    name: {
+        fontSize: 20,
+        fontFamily: fonts.primary[600],
+        color: colors.text.primary,
+        alignItems: 'center'
+    },
+    content: {
+        alignItems: 'center'
     }
 })
