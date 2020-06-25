@@ -55,37 +55,49 @@ export default class AllProduct extends Component {
                 publishers = publishers.replace(/%20/g, ' ')
             }
         }
-        Axios.get(urlApi+'products')
-        .then((res)=>{
-            if(!res.data.error){
-                if(publishers){
-                    let filtered = res.data.data.filter((val)=>{
-                        return val.publisher === publishers
-                    })
-                    if(category){
-                        let filterCategory = filtered.filter((val)=>{
-                            return val.category.toString() === category.toString()
-                        })
-                        this.setState({data:filterCategory})
-                    }else{
-                        this.setState({data : filtered}) 
-                    }
-                }else{
-                    if(category){
-                        let filterCategory = res.data.data.filter((val)=>{
-                            return val.category.toString() === category.toString()
-                        })
-                        this.setState({data:filterCategory})
-                    }else{
-                        this.setState({data : res.data.data}) 
+            let token = localStorage.getItem('token')
+                    if(token){
+                        let config = {
+                            headers : {
+                                Authorization : "Bearer " + token
+                            }
+                        }
 
+                        Axios.get(urlApi+'products', config)
+                        .then((res)=>{
+                            console.log(res)
+                            if(!res.data.error){
+                                if(publishers){
+                                    let filtered = res.data.data.filter((val)=>{
+                                        return val.publisher === publishers
+                                    })
+                                    if(category){
+                                        let filterCategory = filtered.filter((val)=>{
+                                            return val.category.toString() === category.toString()
+                                        })
+                                        this.setState({data:filterCategory})
+                                    }else{
+                                        this.setState({data : filtered}) 
+                                    }
+                                }else{
+                                    if(category){
+                                        let filterCategory = res.data.data.filter((val)=>{
+                                            return val.category.toString() === category.toString()
+                                        })
+                                        this.setState({data:filterCategory})
+                                    }else{
+                                        this.setState({data : res.data.data}) 
+
+                                    }
+                                }
+                            }
+                        })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
                     }
-                }
-            }
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+
+        
     }
 
 

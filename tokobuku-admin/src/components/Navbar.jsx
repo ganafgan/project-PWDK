@@ -13,11 +13,51 @@ import {
   DropdownItem,
   NavbarText
 } from 'reactstrap';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 const TokoBukuNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(false)
 
   const toggle = () => setIsOpen(!isOpen);
+
+  useEffect(()=>{
+    let token = localStorage.getItem('token')
+    if(token){
+      setUser(true)
+    }
+    
+
+  },[])
+
+  const onLogoutBtnClick = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want To Logout?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if(result.value) {
+         localStorage.removeItem('token')
+         setUser(false)
+         Swal.fire({
+          icon:'success',
+          title:'Logout Success',
+          timer:2000,
+          showConfirmButton:false,
+      })
+      .then((res)=>{
+          window.location = '/'
+      })
+      }
+    })
+  }
+
+
 
   return (
     <div>
@@ -30,7 +70,9 @@ const TokoBukuNavbar = (props) => {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          {
+            user ?            
+            <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink href="/dashboard">Dashboard</NavLink>
             </NavItem>
@@ -52,7 +94,17 @@ const TokoBukuNavbar = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText style={{cursor:'pointer', marginRight:30}} onClick={()=>alert('tes')}>Logout</NavbarText>
+          :
+          <div></div>
+
+          }
+          {
+            user ?
+            <NavbarText style={{cursor:'pointer', marginRight:30}} onClick={onLogoutBtnClick}>Logout</NavbarText>
+            :
+            <NavbarText style={{cursor:'pointer', marginRight:30}} onClick={()=>window.location('/')}>Sign In</NavbarText>
+
+          }
         </Collapse>
       </Navbar>
     </div>

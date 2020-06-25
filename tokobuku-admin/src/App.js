@@ -16,6 +16,8 @@ class App extends React.Component{
 		return(
 			
 			<div>
+				<TokoBukuNavbar/>
+
 				<Route exact path='/'>
 					<Login/>
 				</Route>
@@ -25,27 +27,22 @@ class App extends React.Component{
 				</Route>
 
 				<Route path='/dashboard'>
-					<TokoBukuNavbar/>
 					<DashBoard/>
 				</Route>
 
 				<Route path='/product'>
-					<TokoBukuNavbar/>
 					<AllProduct/>
 				</Route>
 
 				<Route path='/post'>
-					<TokoBukuNavbar/>
 					<PostProduct/>
 				</Route>
 
 				<Route path='/transaction'>
-					<TokoBukuNavbar/>
 					<Transaction/>
 				</Route>
 
 				<Route path='/payment'>
-					<TokoBukuNavbar/>
 					<Payment/>
 				</Route>
 				

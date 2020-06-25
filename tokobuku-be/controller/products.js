@@ -1,32 +1,38 @@
 const db = require('./../database/mysql')
 const { uploader } = require('../helpers/uploader')
 const fs = require('fs')
-
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const getAllDataProducts = (req,res) => {
-    let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
-    c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
-    left join product_images pi on p.id =  pi.product_id
-    left join category c on p.category_id = c.id
-    left join publishers pr on p.publishers_id = pr.id;`
+        let sql = `select p.id, p.name as title, p.price, p.description, p.stock, p.tahun_terbit, p.halaman, p.bahasa, 
+        c.category, p.author, pr.name as publisher, pi.url_image, p.created_at from products p 
+        left join product_images pi on p.id =  pi.product_id
+        left join category c on p.category_id = c.id
+        left join publishers pr on p.publishers_id = pr.id;`
 
-    db.query(sql, (err,result) => {
-        try{
-            if(err) throw err
-            res.json({
-                error : false,
-                data : result
-            })
-            //BELUM HANDLE PAGINATION
-        }catch(err){
-            res.json({
-                error : true,
-                message : err.message
-            })
-        }
-    })
+        db.query(sql, (err,result) => {
+            try{
+                if(err) throw err
+                res.json({
+                    error : false,
+                    data : result
+                })
+                //BELUM HANDLE PAGINATION
+            }catch(err){
+                res.json({
+                    error : true,
+                    message : err.message
+                })
+            }
+        })
+    }
 
-}
+
+
+    
+
+
 
 
 const getProductById = (req,res) => {
