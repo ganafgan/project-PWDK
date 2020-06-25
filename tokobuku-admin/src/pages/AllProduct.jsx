@@ -140,12 +140,6 @@ export default class AllProduct extends Component {
             )
         })
     }
-
-
-
-
-
-
     render() {
         if(this.state.publishers === null || this.state.category === null || this.state.data === null) return <Loading/>
 
@@ -213,9 +207,6 @@ export default class AllProduct extends Component {
                         </DropdownMenu>
                         </Dropdown>
                      </div>
-
-
-                
                     <div className="row justify-content-center" style={{textAlign:'center', paddingRight : 50, paddingLeft : 50}}>
                         <Table>
                             <thead>
@@ -231,11 +222,11 @@ export default class AllProduct extends Component {
                                     <th scope='col'>Delete</th>
                                 </tr>
                             </thead>
-
-                            <tbody>
+                           <tbody>
                                 {this.renderProducts()}
                             </tbody>
                         </Table>
+
                     </div>
             </div>
         )

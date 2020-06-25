@@ -4,7 +4,6 @@ import Axios from 'axios'
 import { urlApi } from '../supports/constants/urlApi'
 import { Redirect } from 'react-router-dom'
 
-
 export default class PostProduct extends React.Component{
 
     state = {
@@ -122,6 +121,7 @@ export default class PostProduct extends React.Component{
                         className='input-register mt-2' ref='pengarang' type='text' placeholder='pengarang' />
 
                     <div className='mt-3'>Kategori : </div>
+
                     <select name='kategori' id='kategori' style={{height:'40px'}} onChange={(event)=>(this.setState({category_id : event.target.value}))}>
                         <option value='0'>Kategori</option>
                         {
@@ -140,15 +140,11 @@ export default class PostProduct extends React.Component{
                          })   
                         }
                     </select>
-
                     <div className='mt-3'>Product Image : </div>
                     <input type='file' ref='image' accept='image/*' className='form-control mt-3'/>
-                    
                     <div className='mt-3'>Deskripsi : </div>
                         <textarea className='input-register mt-2' ref='deskripsi' style={{height:'200px'}} 
                         maxLength='500' type='text' placeholder='description' />
-                        
-
                     <span className='mt-5'>
                         <button className="btn btn-outline-primary" onClick={this.onSubmitClick}>Submit</button>
                     </span>
